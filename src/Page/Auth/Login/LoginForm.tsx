@@ -1,9 +1,11 @@
-import { Button, Form, Input } from "antd";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import React from "react";
+import { Button, Col, Form, Input, Row, Typography } from "antd";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../../Config/firebase";
+import { LoginActions } from "../../../State/Actions/LoginActions";
+import { RootStore } from "../../../State/Store";
 import styles from "./LoginForm.module.scss";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 type valuesSubmitType = {
   username: string;
@@ -12,30 +14,22 @@ type valuesSubmitType = {
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const state = useSelector((state: RootStore) => state.login);
 
-  const onFinish = (values: valuesSubmitType) => {
-    signInWithEmailAndPassword(
-      auth,
-      values.username + "@gmail.com",
-      values.password,
-    )
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/");
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-      });
-
-    console.log(values);
+  const onFinish = async (values: valuesSubmitType) => {
+    try {
+      dispatch(LoginActions(values.username, values.password));
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    if (state.user) {
+      navigate("/");
+    }
+  }, [state.user, navigate]);
 
   return (
     <Form name="login" layout="vertical" onFinish={onFinish}>
@@ -43,18 +37,50 @@ const LoginForm = () => {
         name="username"
         label="Tên đăng nhập"
         required={false}
-        rules={[{ required: true, message: "Vui lòng điền tên đăng nhập" }]}>
-        <Input />
+        rules={[{ required: true, message: "Vui lòng điền tên đăng nhập" }]}
+      >
+        <Input status={state.message ? "error" : undefined} size="large" />
       </Form.Item>
       <Form.Item
         name="password"
         label="Mật khẩu"
         required={false}
-        rules={[{ required: true, message: "Vui lòng điền mật khẩu" }]}>
-        <Input.Password size="large" />
+        rules={[{ required: true, message: "Vui lòng điền mật khẩu" }]}
+        help={
+          state.message ? (
+            <div className={styles.warningWrapper}>
+              <Row
+                justify="start"
+                align="middle"
+                className={styles.warningContainer}
+              >
+                <Col>
+                  <InfoCircleOutlined style={{ fontSize: 20 }} />
+                </Col>
+                <Col>
+                  <Typography.Text className={styles.warningText}>
+                    {state.message}
+                  </Typography.Text>
+                </Col>
+              </Row>
+            </div>
+          ) : undefined
+        }
+      >
+        <Input.Password
+          status={state.message ? "error" : undefined}
+          size="large"
+        />
       </Form.Item>
+
       <div className={styles.buttonContainer}>
-        <Button htmlType="submit" type="primary" className={styles.button}>
+        <Button
+          htmlType="submit"
+          type="primary"
+          className={styles.button}
+          loading={state.loading}
+          size="large"
+        >
           Đăng nhập
         </Button>
         <Link to="/auth/forget-password" className={styles.link}>

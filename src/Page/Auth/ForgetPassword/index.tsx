@@ -1,10 +1,15 @@
 import React from "react";
 import AuthWrapper from "../Components/AuthWrapper";
-import logo from "../../../Assets/logo.svg";
+import illustrationHelp from "../../../Assets/illustrationHelp.svg";
 import ForgetPasswordForm from "./ForgetPasswordForm";
 
 const ForgetPassword = () => {
-  return <AuthWrapper illustration={logo} form={<ForgetPasswordForm />} />;
+  return (
+    <AuthWrapper
+      illustration={illustrationHelp}
+      form={<ForgetPasswordForm />}
+    />
+  );
 };
 
 export default ForgetPassword;

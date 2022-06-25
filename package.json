@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@craco/craco": "^6.4.3",
+    "@iconscout/react-unicons": "^1.1.6",
     "@redux-devtools/extension": "^3.2.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -15,6 +17,7 @@
     "antd": "^4.21.3",
     "craco-less": "^2.0.0",
     "firebase": "^9.8.3",
+    "iconsax-react": "^0.0.8",
     "node-sass": "^7.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

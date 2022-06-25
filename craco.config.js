@@ -9,18 +9,28 @@ module.exports = {
           lessOptions: {
             modifyVars: {
               "@primary-color": "#FF9138",
-              "@btn-font-weight": 700,
 
-              "@height-base": "44px",
-              "@font-size-base": "18px",
+              "@height-lg": "44px",
               "@border-width-base": "1.5px",
-              "@border-radius-base": "8px",
+              //control
+              "@control-border-radius": "8px",
+              //btn
+              "@btn-border-radius-base": "8px",
+              "@btn-font-weight": 700,
               //input
               "@input-border-color": "#D4D4D7",
+              "@input-disabled-bg": "#EAEAEC",
               //layout
               "@layout-body-background": "#F6F6F6",
               "@layout-header-background": "#ffffff",
-
+              //form
+              "@form-item-label-font-size": "18px",
+              //menu
+              "@menu-item-color": "#7E7D88",
+              "@menu-item-active-bg": "#FF7506",
+              "@menu-item-font-size": "16px",
+              "@menu-item-height": "48px",
+              "@menu-item-boundary-margin": 0,
               //typography
               "@typography-title-font-weight": 700,
             },

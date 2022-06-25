@@ -1,25 +1,22 @@
 import { Button, Form, Input, Typography } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./ForgetPasswordForm.module.scss";
+import { valuesSubmitConfirmEmailType } from "..";
+import styles from "./ConfirmEmail.module.scss";
 
-type valuesSubmitType = {
-  email: string;
-};
+interface IConfirmEmail {
+  onFinish: (values: valuesSubmitConfirmEmailType) => void;
+}
 
 const { Text } = Typography;
 
-const ForgetPasswordForm = () => {
-  const onFinish = (values: valuesSubmitType) => {
-    console.log(values);
-  };
-
+const ConfirmEmail: React.FC<IConfirmEmail> = (props) => {
   return (
     <Form
       className={styles.form}
       name="forget-password-form"
       layout="vertical"
-      onFinish={onFinish}
+      onFinish={props.onFinish}
     >
       <div className={styles.titleWrapper}>
         <Text className={styles.title}>Đặt lại mật khẩu</Text>
@@ -53,4 +50,4 @@ const ForgetPasswordForm = () => {
   );
 };
 
-export default ForgetPasswordForm;
+export default ConfirmEmail;

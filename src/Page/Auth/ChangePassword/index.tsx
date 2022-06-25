@@ -1,10 +1,32 @@
 import React from "react";
 import AuthWrapper from "../Components/AuthWrapper";
-import logo from "../../../Assets/logo.svg";
-import ChangePasswordFom from "./ChangePasswordFom";
+import illustrationHelp from "../../../Assets/illustrationHelp.svg";
+import ConfirmEmail from "./ConfirmEmail";
 
-const index = () => {
-  return <AuthWrapper illustration={logo} form={<ChangePasswordFom />} />;
+export type valuesSubmitConfirmEmailType = {
+  email: string;
 };
 
-export default index;
+export type valuesSubmitResetEmailType = {
+  password: string;
+  confirmPassword: string;
+};
+
+const ChangePassword = () => {
+  const onFinishConfirrmEmail = (values: valuesSubmitConfirmEmailType) => {
+    console.log(values);
+  };
+
+  const onFinishResetPassword = (values: valuesSubmitResetEmailType) => {
+    console.log(values);
+  };
+
+  return (
+    <AuthWrapper
+      illustration={illustrationHelp}
+      form={<ConfirmEmail onFinish={onFinishConfirrmEmail} />}
+    />
+  );
+};
+
+export default ChangePassword;

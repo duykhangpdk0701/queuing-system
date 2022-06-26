@@ -8,58 +8,57 @@ export enum EResetPassword {
   CHANGE_PASSWORD_LOADING = "CHANGE_PASSWORD_LOADING",
   CHANGE_PASSWORD_FAIL = "CHANGE_PASSWORD_FAIL",
   CHANGE_PASSWORD_ERROR = "CHANGE_PASSWORD_ERROR",
+
+  CLEAR_CACHE = "CLEAR_CACHE",
 }
 
 export interface IResetPasswordConfirmEmailSuccess {
   type: typeof EResetPassword.CONFIRM_EMAIL_SUCCESS;
+  userId: string;
   loading: boolean;
-  step: number;
 }
 
 export interface IResetPasswordConfirmEmailLoading {
   type: typeof EResetPassword.CONFIRM_EMAIL_LOADING;
   loading: boolean;
-  step: number;
 }
 
 export interface IResetPasswordConfirmEmailFail {
   type: typeof EResetPassword.CONFIRM_EMAIL_FAIL;
   loading: boolean;
-  step: number;
   message: string;
 }
 
 export interface IResetPasswordConfirmEmailError {
   type: typeof EResetPassword.CONFIRM_EMAIL_ERROR;
   loading: boolean;
-  step: number;
   error: Error;
 }
 
 export interface IResetPasswordChangePasswordSuccess {
-  type: typeof EResetPassword.CHANGE_PASSWORD_ERROR;
+  type: typeof EResetPassword.CHANGE_PASSWORD_SUCCESS;
   loading: boolean;
-  step: number;
 }
 
 export interface IResetPasswordChangePasswordLoading {
   type: typeof EResetPassword.CHANGE_PASSWORD_LOADING;
   loading: boolean;
-  step: number;
 }
 
 export interface IResetPasswordChangePasswordFail {
   type: typeof EResetPassword.CHANGE_PASSWORD_FAIL;
   loading: boolean;
-  step: number;
   message: string;
 }
 
 export interface IResetPasswordChangePasswordError {
   type: typeof EResetPassword.CHANGE_PASSWORD_ERROR;
   loading: boolean;
-  step: number;
   error: Error;
+}
+
+export interface IResetPasswordClearCache {
+  type: typeof EResetPassword.CLEAR_CACHE;
 }
 
 export type IConfirmEmailDispatchTypes =
@@ -70,4 +69,5 @@ export type IConfirmEmailDispatchTypes =
   | IResetPasswordChangePasswordSuccess
   | IResetPasswordChangePasswordLoading
   | IResetPasswordChangePasswordFail
-  | IResetPasswordChangePasswordError;
+  | IResetPasswordChangePasswordError
+  | IResetPasswordClearCache;

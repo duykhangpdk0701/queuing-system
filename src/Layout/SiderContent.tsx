@@ -28,11 +28,11 @@ const items: MenuProps["items"] = [
     label: (
       <>
         Thiết bị
-        <Link to="/equipment" />
+        <Link to="/devices" />
       </>
     ),
 
-    key: "/equipment",
+    key: "/devices",
     icon: <Monitor size={20} />,
   },
   {

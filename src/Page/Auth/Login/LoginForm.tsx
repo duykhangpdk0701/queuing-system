@@ -39,7 +39,11 @@ const LoginForm = () => {
         required={false}
         rules={[{ required: true, message: "Vui lòng điền tên đăng nhập" }]}
       >
-        <Input status={state.message ? "error" : undefined} size="large" />
+        <Input
+          status={state.message ? "error" : undefined}
+          size="large"
+          disabled={state.loading}
+        />
       </Form.Item>
       <Form.Item
         name="password"
@@ -68,6 +72,7 @@ const LoginForm = () => {
         }
       >
         <Input.Password
+          disabled={state.loading}
           status={state.message ? "error" : undefined}
           size="large"
         />
@@ -83,7 +88,7 @@ const LoginForm = () => {
         >
           Đăng nhập
         </Button>
-        <Link to="/auth/forget-password" className={styles.link}>
+        <Link to="/auth/reset-password" className={styles.link}>
           Quên mật khẩu?
         </Link>
       </div>

@@ -1,4 +1,4 @@
-import { Card, Form, Input, Space, Row, Col } from "antd";
+import { Card, Form, Input, Row, Col } from "antd";
 import React from "react";
 
 const ViewInfo = () => {

@@ -39,10 +39,10 @@ const items: MenuProps["items"] = [
     label: (
       <>
         Dịch Vụ
-        <Link to="/service" />
+        <Link to="/services" />
       </>
     ),
-    key: "/service",
+    key: "/services",
     icon: <Icon component={serviceSvg} />,
   },
   {

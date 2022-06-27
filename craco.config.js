@@ -44,7 +44,6 @@ module.exports = {
               "@table-header-color": "#FFFFFF ",
               "@table-border-radius-base": "10px",
               "@table-padding-horizontal": "32px",
-              "@table-border-color": "#FFE3CD",
             },
             javascriptEnabled: true,
           },

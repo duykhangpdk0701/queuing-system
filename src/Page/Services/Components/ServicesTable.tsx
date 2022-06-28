@@ -49,7 +49,7 @@ const data: Datatype[] = [
   },
 
   {
-    key: "1",
+    key: "2",
     id: "123",
     name: "Kiosk",
     description: "Hello my name is Khang",

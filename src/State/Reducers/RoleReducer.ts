@@ -39,6 +39,25 @@ const RoleReducer = (
         error: action.error,
       };
 
+    case ERole.GET_LOADING:
+      return {
+        loading: true,
+        current: state.current,
+      };
+
+    case ERole.GET_SUCCESS:
+      return {
+        loading: false,
+        current: action.payload,
+      };
+
+    case ERole.GET_ERROR:
+      return {
+        loading: false,
+        current: state.current,
+        error: action.error,
+      };
+
     default:
       return {
         loading: false,

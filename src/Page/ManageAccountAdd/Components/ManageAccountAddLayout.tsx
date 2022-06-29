@@ -1,13 +1,19 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from "antd";
-import React from "react";
+import React, { FC } from "react";
+import { RoleType } from "../../../State/ActionTypes/RoleActionType";
 import styles from "./ManageAccountAddLayout.module.scss";
+
+interface IManageAccountLayout {
+  roleLoading: boolean;
+  roleData: RoleType[];
+}
 
 const { Option } = Select;
 
-const ManageAccountAddLayout = () => {
+const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
   return (
-    <Form layout="vertical" className={styles.section}>
+    <Form name="add-user" layout="vertical" className={styles.section}>
       <Row>
         <Col>
           <Typography.Title level={2} className={styles.title}>
@@ -28,6 +34,7 @@ const ManageAccountAddLayout = () => {
               <Col span={12}>
                 <Form.Item
                   label={<Typography.Text strong>Họ tên:</Typography.Text>}
+                  rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
                 >
                   <Input size="large" placeholder="Nhập họ tên" />
                 </Form.Item>
@@ -37,6 +44,9 @@ const ManageAccountAddLayout = () => {
                   label={
                     <Typography.Text strong>Tên đăng nhập:</Typography.Text>
                   }
+                  rules={[
+                    { required: true, message: "Vui lòng nhập tên đăng nhập" },
+                  ]}
                 >
                   <Input size="large" placeholder="Nhập tên đăng nhập" />
                 </Form.Item>
@@ -47,6 +57,9 @@ const ManageAccountAddLayout = () => {
                   label={
                     <Typography.Text strong>Số điện thoại:</Typography.Text>
                   }
+                  rules={[
+                    { required: true, message: "Vui lòng nhập số điện thoại" },
+                  ]}
                 >
                   <Input size="large" placeholder="Nhập số điện thoại" />
                 </Form.Item>
@@ -54,6 +67,9 @@ const ManageAccountAddLayout = () => {
               <Col span={12}>
                 <Form.Item
                   label={<Typography.Text strong>Mật khẩu:</Typography.Text>}
+                  rules={[
+                    { required: true, message: "Vui lòng nhập mật khẩu" },
+                  ]}
                 >
                   <Input.Password size="large" placeholder="Nhập mật khẩu" />
                 </Form.Item>
@@ -62,6 +78,8 @@ const ManageAccountAddLayout = () => {
               <Col span={12}>
                 <Form.Item
                   label={<Typography.Text strong>Email:</Typography.Text>}
+                  required={false}
+                  rules={[{ required: true, message: "Vui lòng nhập email" }]}
                 >
                   <Input size="large" placeholder="Nhập email" />
                 </Form.Item>
@@ -71,6 +89,9 @@ const ManageAccountAddLayout = () => {
                   label={
                     <Typography.Text strong>Nhập lại mật khẩu:</Typography.Text>
                   }
+                  rules={[
+                    { required: true, message: "Vui lòng nhập mật khẩu" },
+                  ]}
                 >
                   <Input.Password
                     size="large"
@@ -82,8 +103,11 @@ const ManageAccountAddLayout = () => {
               <Col span={12}>
                 <Form.Item
                   label={<Typography.Text strong>Vai trò:</Typography.Text>}
+                  rules={[{ required: true, message: "Vui lòng chọn vai trò" }]}
                 >
                   <Select
+                    loading={props.roleLoading}
+                    disabled={props.roleLoading}
                     allowClear
                     size="large"
                     placeholder="Chọn vai trò"
@@ -93,15 +117,11 @@ const ManageAccountAddLayout = () => {
                       />
                     }
                   >
-                    <Option key={1} value={"Khám tim mạch"}>
-                      Kế toán
-                    </Option>
-                    <Option key={2} value={"Khám sản phụ khoa"}>
-                      Quản lý
-                    </Option>
-                    <Option key={3} value={"Khám răng hàm mặt "}>
-                      Admin
-                    </Option>
+                    {props.roleData.map((value, index) => (
+                      <Select.Option key={index} value={value.id}>
+                        {value.name}
+                      </Select.Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </Col>
@@ -112,20 +132,17 @@ const ManageAccountAddLayout = () => {
                   <Select
                     allowClear
                     size="large"
-                    defaultValue={"Khám sản phụ khoa"}
+                    defaultValue={true}
                     suffixIcon={
                       <CaretDownOutlined
                         style={{ fontSize: "20px", color: "#FF7506" }}
                       />
                     }
                   >
-                    <Option key={1} value={"Khám tim mạch"}>
-                      Tất cả
-                    </Option>
-                    <Option key={2} value={"Khám sản phụ khoa"}>
+                    <Option key={1} value={false}>
                       Ngưng hoạt động
                     </Option>
-                    <Option key={3} value={"Khám răng hàm mặt "}>
+                    <Option key={2} value={true}>
                       Hoạt động
                     </Option>
                   </Select>
@@ -142,7 +159,12 @@ const ManageAccountAddLayout = () => {
           </Button>
         </Col>
         <Col>
-          <Button size="large" type="primary" className={styles.button}>
+          <Button
+            htmlType="submit"
+            size="large"
+            type="primary"
+            className={styles.button}
+          >
             Thêm
           </Button>
         </Col>

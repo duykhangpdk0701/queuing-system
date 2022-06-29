@@ -2,6 +2,10 @@ export enum ERole {
   ADD_LOADING = "ADD_LOADING",
   ADD_SUCCESS = "ADD_SUCCESS",
   ADD_ERROR = "ADD_ERROR",
+
+  GET_LOADING = "GET_LOADING",
+  GET_SUCCESS = "GET_SUCCESS",
+  GET_ERROR = "GET_ERROR",
 }
 
 export type RoleType = {
@@ -32,4 +36,24 @@ export interface RoleAddSuccess {
   payload: RoleType;
 }
 
-export type RoleDispatchType = RoleAddLoading | RoleAddError | RoleAddSuccess;
+export interface RoleGetLoading {
+  type: typeof ERole.GET_LOADING;
+}
+
+export interface RoleGetError {
+  type: typeof ERole.GET_ERROR;
+  error: Error;
+}
+
+export interface RoleGetSuccess {
+  type: typeof ERole.GET_SUCCESS;
+  payload: RoleType[];
+}
+
+export type RoleDispatchType =
+  | RoleAddLoading
+  | RoleAddError
+  | RoleAddSuccess
+  | RoleGetLoading
+  | RoleGetError
+  | RoleGetSuccess;

@@ -1,17 +1,15 @@
 import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
-import React from "react";
+import React, { FC } from "react";
+import { Link } from "react-router-dom";
+import { UserType } from "../../../State/ActionTypes/UserActionTypes";
 
-interface DataType {
-  key: string;
-  name: string;
-  username: string;
-  phoneNumber: string;
-  email: string;
-  active: boolean;
+interface IManageAccountTable {
+  loading: boolean;
+  data: UserType[];
 }
 
-const columns: ColumnsType<DataType> = [
+const columns: ColumnsType<any> = [
   {
     title: "Tên đăng nhập",
     key: "username",
@@ -35,48 +33,43 @@ const columns: ColumnsType<DataType> = [
     key: "email",
     dataIndex: "email",
   },
+  {
+    title: "Vai trò",
+    key: "role",
+    dataIndex: "role",
+  },
 
   {
     title: "Trạng thái hoạt động",
-    key: "active",
-    dataIndex: "active",
+    key: "isActive",
+    dataIndex: "isActive",
+    render: (value, record, index) => {
+      return value ? "Hoạt động" : "Ngừng hoạt động";
+    },
   },
 
-  {},
-];
+  {
+    key: "action",
 
-const data: DataType[] = [
-  {
-    key: "1",
-    username: "duykhangpdk0701",
-    name: "John Brown",
-    phoneNumber: "0123030401",
-    email: "duykhangpdk0701@gmail.com",
-    active: true,
-  },
-  {
-    key: "2",
-    username: "duykhangpdk0701",
-    name: "Jim Green",
-    phoneNumber: "0123030401",
-    email: "duykhangpdk0701@gmail.com",
-    active: true,
-  },
-  {
-    key: "3",
-    username: "duykhangpdk0701",
-    name: "Joe Black",
-    phoneNumber: "0123030401",
-    email: "duykhangpdk0701@gmail.com",
-    active: true,
+    render: (value, record, index) => {
+      return (
+        <Link
+          to={`/setting/accounts/update/${value.id}`}
+          style={{ color: "#4277FF", textDecorationLine: "underline" }}
+        >
+          Cập nhật
+        </Link>
+      );
+    },
   },
 ];
 
-const ManageAccountTable = () => {
+const ManageAccountTable: FC<IManageAccountTable> = (props) => {
   return (
     <Table
+      loading={props.loading}
       columns={columns}
-      dataSource={data}
+      dataSource={props.data.map((value) => ({ ...value, key: value.id }))}
       bordered
       size="middle"
       pagination={{ position: ["bottomRight"] }}

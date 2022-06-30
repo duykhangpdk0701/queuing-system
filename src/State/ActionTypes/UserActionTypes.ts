@@ -2,6 +2,7 @@ export enum EUser {
   ADD_LOADING = "ADD_LOADING",
   ADD_SUCCESS = "ADD_SUCCESS",
   ADD_ERROR = "ADD_ERROR",
+  ADD_FAIL = "ADD_FAIL",
 
   GET_LOADING = "GET_LOADING",
   GET_SUCCESS = "GET_SUCCESS",
@@ -20,8 +21,12 @@ export type UserType = {
 
 export type UserAddType = {
   name: string;
-  description: string;
-  authority: string[];
+  username: string;
+  phoneNumber: string;
+  password: string;
+  email: string;
+  role: string;
+  isActive: boolean;
 };
 
 export interface UserAddLoading {
@@ -36,6 +41,11 @@ export interface UserAddError {
 export interface UserAddSuccess {
   type: typeof EUser.ADD_SUCCESS;
   payload: UserType;
+}
+
+export interface UserAddFail {
+  type: typeof EUser.ADD_FAIL;
+  message: string;
 }
 
 export interface UserGetLoading {
@@ -58,4 +68,5 @@ export type UserDispatchType =
   | UserAddSuccess
   | UserGetLoading
   | UserGetError
-  | UserGetSuccess;
+  | UserGetSuccess
+  | UserAddFail;

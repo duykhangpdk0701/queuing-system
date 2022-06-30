@@ -1,10 +1,17 @@
+import { CaretDownOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from "antd";
-import React from "react";
+import React, { FC } from "react";
+import { DeviceTypeType } from "../../../State/ActionTypes/DeviceTypeActionTypes";
 import styles from "./DeviceAddLayout.module.scss";
+
+interface IDeviceAddLayout {
+  deviceTypeloading: boolean;
+  deviceTypeData: DeviceTypeType[];
+}
 
 const { Option } = Select;
 
-const DeviceAddLayout = () => {
+const DeviceAddLayout: FC<IDeviceAddLayout> = (props) => {
   return (
     <Form layout="vertical" className={styles.section}>
       <Row>
@@ -26,20 +33,35 @@ const DeviceAddLayout = () => {
             </Row>
 
             <Row gutter={24}>
-              <Col flex={1}>
+              <Col span={12}>
                 <Form.Item
                   label={<Typography.Text strong>Mã thiết bị:</Typography.Text>}
                 >
                   <Input size="large" placeholder="Nhập mã thiết bị" />
                 </Form.Item>
               </Col>
-              <Col flex={1}>
+              <Col span={12}>
                 <Form.Item
                   label={
                     <Typography.Text strong>Loại thiết bị:</Typography.Text>
                   }
                 >
-                  <Input size="large" placeholder="Chọn loại thiết bị" />
+                  <Select
+                    size="large"
+                    placeholder="Chọn loại thiết bị"
+                    loading={props.deviceTypeloading}
+                    suffixIcon={
+                      <CaretDownOutlined
+                        style={{ fontSize: "20px", color: "#FF7506" }}
+                      />
+                    }
+                  >
+                    {props.deviceTypeData.map((value, index) => (
+                      <Option key={index} value={value.id}>
+                        {value.name}
+                      </Option>
+                    ))}
+                  </Select>
                 </Form.Item>
               </Col>
             </Row>
@@ -85,7 +107,7 @@ const DeviceAddLayout = () => {
               <Col flex={1}>
                 <Form.Item
                   label={
-                    <Typography.Text strong>Dịch vụ sửa dụng:</Typography.Text>
+                    <Typography.Text strong>Dịch vụ sử dụng:</Typography.Text>
                   }
                 >
                   <Select

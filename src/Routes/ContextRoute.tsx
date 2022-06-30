@@ -16,6 +16,7 @@ import ManageAccountUpdate from "../Page/ManageAccountUpdate";
 import ManageRole from "../Page/ManageRole";
 import ManageRoleAdd from "../Page/ManageRoleAdd";
 import ProviderNumber from "../Page/ProviderNumber";
+import ServiceAdd from "../Page/ServiceAdd";
 import Services from "../Page/Services";
 
 const { Sider, Content, Header } = Layout;
@@ -44,6 +45,7 @@ const ContextRoute = () => {
 
             <Route path="/services">
               <Route index element={<Services />} />
+              <Route path="add" element={<ServiceAdd />} />
             </Route>
 
             <Route path="/provider">

@@ -1,17 +1,19 @@
 import { combineReducers } from "redux";
-import DeviceTypeReducer from "./DeviceTypeReducers";
+import DeviceTypeReducer from "./DeviceTypesReducers";
 import LoginReducer from "./LoginReducer";
 import ResetPasswordReducer from "./ResetPasswordReducers";
-import RoleReducer from "./RoleReducer";
+import RoleReducer from "./RolesReducer";
 import ServiceReducer from "./ServiceReducers";
-import UserReducer from "./UserReducer";
+import ServicesReducer from "./ServicesReducers";
+import UserReducer from "./UsersReducer";
 
 const RootReducer = combineReducers({
   login: LoginReducer,
   resetPassword: ResetPasswordReducer,
-  role: RoleReducer,
-  user: UserReducer,
-  deviceType: DeviceTypeReducer,
+  roles: RoleReducer,
+  users: UserReducer,
+  deviceTypes: DeviceTypeReducer,
+  services: ServicesReducer,
   service: ServiceReducer,
 });
 

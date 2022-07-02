@@ -1,14 +1,14 @@
 import { message } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { serviceAddAction } from "../../State/Actions/ServiceActions";
-import { ServiceAddType } from "../../State/ActionTypes/ServiceActionTypes";
+import { serviceAddAction } from "../../State/Actions/ServicesActions";
+import { ServiceAddType } from "../../State/ActionTypes/ServicesActionTypes";
 import { RootStore } from "../../State/Store";
 import ServiceAddLayout from "./Components/ServiceAddLayout";
 
 const ServiceAdd = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state: RootStore) => state.service);
+  const state = useSelector((state: RootStore) => state.services);
 
   const onFinish = async (values: any) => {
     const valueFormat: ServiceAddType = {

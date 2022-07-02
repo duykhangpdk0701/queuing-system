@@ -5,9 +5,9 @@ import {
   UserAddType,
   UserDispatchType,
   UserType,
-} from "../ActionTypes/UserActionTypes";
+} from "../ActionTypes/UsersActionTypes";
 import { db } from "../../Config/firebase";
-import { RoleType } from "../ActionTypes/RoleActionType";
+import { RoleType } from "../ActionTypes/RolesActionType";
 
 export const userGetAction =
   () => async (dispatch: Dispatch<UserDispatchType>) => {

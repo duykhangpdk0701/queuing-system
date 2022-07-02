@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deviceTypeGetAction } from "../../State/Actions/DeviceTypeActions";
+import { deviceTypeGetAction } from "../../State/Actions/DevicesTypeActions";
 import { RootStore } from "../../State/Store";
 import DeviceAddLayout from "./Components/DeviceAddLayout";
 
 const DeviceAdd = () => {
   const dispatch = useDispatch();
-  const deviceTypeState = useSelector((state: RootStore) => state.deviceType);
+  const deviceTypeState = useSelector((state: RootStore) => state.deviceTypes);
   useEffect(() => {
     const fecthDeviceType = () => {
       try {

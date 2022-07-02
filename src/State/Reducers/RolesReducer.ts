@@ -1,59 +1,61 @@
 import {
-  EServices,
-  ServiceDispatchType,
-  ServiceType,
-} from "../ActionTypes/ServicesActionTypes";
+  ERole,
+  RoleDispatchType,
+  RoleType,
+} from "../ActionTypes/RolesActionType";
 
 export interface defaultState {
   loading: boolean;
   error?: Error;
-  current: ServiceType;
+  current: RoleType[];
 }
 
 const initialState: defaultState = {
   loading: false,
-  current: {
-    id: "1",
-    name: "unknown",
-    description: "unknown",
-    isReset: false,
-    surfix: 1,
-    prefix: 2,
-    increase: {
-      from: 1,
-      to: 10,
-    },
-  },
+  current: [],
 };
 
-const ServiceReducer = (
+const RoleReducer = (
   state: defaultState = initialState,
-  action: ServiceDispatchType
+  action: RoleDispatchType
 ) => {
   switch (action.type) {
-    case EServices.GET_BY_ID_LOADING:
+    case ERole.ADD_LOADING:
       return {
         loading: true,
         current: state.current,
       };
 
-    case EServices.GET_BY_ID_ERROR:
+    case ERole.ADD_SUCCESS:
+      return {
+        loading: false,
+        current: [...state.current, action.payload],
+      };
+
+    case ERole.ADD_ERROR:
       return {
         loading: false,
         current: state.current,
         error: action.error,
       };
 
-    case EServices.GET_BY_ID_SUCCESS:
+    case ERole.GET_LOADING:
+      return {
+        loading: true,
+        current: state.current,
+      };
+
+    case ERole.GET_SUCCESS:
       return {
         loading: false,
         current: action.payload,
       };
 
-    case EServices.UPDATE_BY_ID_SUCCESS:
+    case ERole.GET_ERROR:
       return {
         loading: false,
-        current: action.payload,
+        current: state.current,
+        error: action.error,
       };
 
     default:
@@ -64,4 +66,4 @@ const ServiceReducer = (
   }
 };
 
-export default ServiceReducer;
+export default RoleReducer;

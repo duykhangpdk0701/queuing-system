@@ -15,9 +15,12 @@ import ManageAccountAdd from "../Page/ManageAccountAdd";
 import ManageAccountUpdate from "../Page/ManageAccountUpdate";
 import ManageRole from "../Page/ManageRole";
 import ManageRoleAdd from "../Page/ManageRoleAdd";
+import ManagerRoleUpdate from "../Page/ManageRoleUpdate";
 import ProviderNumber from "../Page/ProviderNumber";
 import ServiceAdd from "../Page/ServiceAdd";
+import ServiceDetail from "../Page/ServiceDetail";
 import Services from "../Page/Services";
+import ServiceUpdate from "../Page/ServiceUpdate";
 
 const { Sider, Content, Header } = Layout;
 
@@ -46,6 +49,8 @@ const ContextRoute = () => {
             <Route path="/services">
               <Route index element={<Services />} />
               <Route path="add" element={<ServiceAdd />} />
+              <Route path="update/:id" element={<ServiceUpdate />} />
+              <Route path=":id" element={<ServiceDetail />} />
             </Route>
 
             <Route path="/provider">
@@ -62,6 +67,7 @@ const ContextRoute = () => {
               <Route path="manage-roles">
                 <Route index element={<ManageRole />} />
                 <Route path="add" element={<ManageRoleAdd />} />
+                <Route path="update/:id" element={<ManagerRoleUpdate />} />
               </Route>
 
               <Route path="user-history" element={<History />} />

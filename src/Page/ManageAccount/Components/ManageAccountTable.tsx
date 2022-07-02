@@ -2,7 +2,7 @@ import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import { UserType } from "../../../State/ActionTypes/UserActionTypes";
+import { UserType } from "../../../State/ActionTypes/UsersActionTypes";
 
 interface IManageAccountTable {
   loading: boolean;

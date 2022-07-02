@@ -2,7 +2,7 @@ import {
   DeviceTypeDispatchType,
   DeviceTypeType,
   EDeviceType,
-} from "../ActionTypes/DeviceTypeActionTypes";
+} from "../ActionTypes/DeviceTypesActionTypes";
 
 export interface defaultState {
   loading: boolean;

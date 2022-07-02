@@ -1,7 +1,7 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from "antd";
 import React, { FC } from "react";
-import { DeviceTypeType } from "../../../State/ActionTypes/DeviceTypeActionTypes";
+import { DeviceTypeType } from "../../../State/ActionTypes/DeviceTypesActionTypes";
 import styles from "./DeviceAddLayout.module.scss";
 
 interface IDeviceAddLayout {

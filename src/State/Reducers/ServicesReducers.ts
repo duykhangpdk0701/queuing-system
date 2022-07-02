@@ -1,13 +1,13 @@
 import {
-  EUser,
-  UserDispatchType,
-  UserType,
-} from "../ActionTypes/UserActionTypes";
+  EServices,
+  ServiceDispatchType,
+  ServiceType,
+} from "../ActionTypes/ServicesActionTypes";
 
 export interface defaultState {
   loading: boolean;
   error?: Error;
-  current: UserType[];
+  current: ServiceType[];
 }
 
 const initialState: defaultState = {
@@ -15,54 +15,68 @@ const initialState: defaultState = {
   current: [],
 };
 
-const UserReducer = (
+const ServicesReducer = (
   state: defaultState = initialState,
-  action: UserDispatchType
+  action: ServiceDispatchType
 ) => {
   switch (action.type) {
-    case EUser.GET_LOADING:
+    case EServices.ADD_LOADING:
       return {
         loading: true,
         current: state.current,
       };
 
-    case EUser.GET_SUCCESS:
-      return {
-        loading: false,
-        current: action.payload,
-      };
-
-    case EUser.GET_ERROR:
-      return {
-        loading: false,
-        current: state.current,
-        error: action.error,
-      };
-
-    case EUser.ADD_LOADING:
-      return {
-        loading: true,
-        current: state.current,
-      };
-
-    case EUser.ADD_SUCCESS:
+    case EServices.ADD_SUCCESS:
       return {
         loading: false,
         current: [...state.current, action.payload],
       };
 
-    case EUser.ADD_ERROR:
+    case EServices.ADD_ERROR:
       return {
         loading: false,
         current: state.current,
         error: action.error,
       };
 
-    case EUser.ADD_FAIL:
+    case EServices.GET_LOADING:
+      return {
+        loading: true,
+        current: state.current,
+      };
+
+    case EServices.GET_SUCCESS:
+      return {
+        loading: false,
+        current: action.payload,
+      };
+
+    case EServices.GET_ERROR:
       return {
         loading: false,
         current: state.current,
-        message: action.message,
+        error: action.error,
+      };
+
+    case EServices.UPDATE_BY_ID_LOADING:
+      return {
+        loading: true,
+        current: state.current,
+      };
+
+    case EServices.UPDATE_BY_ID_SUCCESS:
+      return {
+        loading: false,
+        current: state.current.map((value) =>
+          value.id === action.payload.id ? action.payload : value
+        ),
+      };
+
+    case EServices.UPDATE_BY_ID_ERROR:
+      return {
+        loading: false,
+        current: state.current,
+        error: action.error,
       };
 
     default:
@@ -73,4 +87,4 @@ const UserReducer = (
   }
 };
 
-export default UserReducer;
+export default ServicesReducer;

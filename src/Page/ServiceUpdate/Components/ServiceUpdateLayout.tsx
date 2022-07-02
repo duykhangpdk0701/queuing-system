@@ -1,3 +1,4 @@
+import React, { Dispatch, FC, useEffect } from "react";
 import {
   Button,
   Card,
@@ -9,24 +10,40 @@ import {
   Row,
   Typography,
 } from "antd";
-import React, { FC, useState } from "react";
+
+import styles from "./ServiceUpdateLayout.module.scss";
+import { useForm } from "antd/lib/form/Form";
 import { Link } from "react-router-dom";
-import styles from "./ServiceAddLayout.module.scss";
+import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
 
 interface IServiceAddLayout {
+  prefix: boolean;
+  setPrefix: Dispatch<React.SetStateAction<boolean>>;
+
+  surfix: boolean;
+  setSurfix: Dispatch<React.SetStateAction<boolean>>;
+
+  increase: boolean;
+  setIncrease: Dispatch<React.SetStateAction<boolean>>;
+
   loading: boolean;
-  onFinish: (values: any) => void;
+  onFinish: (values: ServiceType) => void;
+  initialValues: any;
 }
 
 const { Text, Title } = Typography;
 
-const ServiceAddLayout: FC<IServiceAddLayout> = (props) => {
-  const [prefix, setPrefix] = useState(false);
-  const [surfix, setSurfix] = useState(false);
-  const [increase, setIncrease] = useState(false);
+const ServiceUpdateLayout: FC<IServiceAddLayout> = (props) => {
+  const { prefix, setPrefix, surfix, setSurfix, increase, setIncrease } = props;
+  const [form] = useForm();
+
+  useEffect(() => {
+    form.setFieldsValue(props.initialValues);
+  }, [props.initialValues, form]);
 
   return (
     <Form
+      form={form}
       name="service-add"
       layout="vertical"
       className={styles.section}
@@ -188,4 +205,4 @@ const ServiceAddLayout: FC<IServiceAddLayout> = (props) => {
   );
 };
 
-export default ServiceAddLayout;
+export default ServiceUpdateLayout;

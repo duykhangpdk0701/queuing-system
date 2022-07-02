@@ -1,13 +1,13 @@
 import {
-  ERole,
-  RoleDispatchType,
-  RoleType,
-} from "../ActionTypes/RoleActionType";
+  EUser,
+  UserDispatchType,
+  UserType,
+} from "../ActionTypes/UsersActionTypes";
 
 export interface defaultState {
   loading: boolean;
   error?: Error;
-  current: RoleType[];
+  current: UserType[];
 }
 
 const initialState: defaultState = {
@@ -15,47 +15,54 @@ const initialState: defaultState = {
   current: [],
 };
 
-const RoleReducer = (
+const UserReducer = (
   state: defaultState = initialState,
-  action: RoleDispatchType
+  action: UserDispatchType
 ) => {
   switch (action.type) {
-    case ERole.ADD_LOADING:
+    case EUser.GET_LOADING:
       return {
         loading: true,
         current: state.current,
       };
 
-    case ERole.ADD_SUCCESS:
-      return {
-        loading: false,
-        current: [...state.current, action.payload],
-      };
-
-    case ERole.ADD_ERROR:
-      return {
-        loading: false,
-        current: state.current,
-        error: action.error,
-      };
-
-    case ERole.GET_LOADING:
-      return {
-        loading: true,
-        current: state.current,
-      };
-
-    case ERole.GET_SUCCESS:
+    case EUser.GET_SUCCESS:
       return {
         loading: false,
         current: action.payload,
       };
 
-    case ERole.GET_ERROR:
+    case EUser.GET_ERROR:
       return {
         loading: false,
         current: state.current,
         error: action.error,
+      };
+
+    case EUser.ADD_LOADING:
+      return {
+        loading: true,
+        current: state.current,
+      };
+
+    case EUser.ADD_SUCCESS:
+      return {
+        loading: false,
+        current: [...state.current, action.payload],
+      };
+
+    case EUser.ADD_ERROR:
+      return {
+        loading: false,
+        current: state.current,
+        error: action.error,
+      };
+
+    case EUser.ADD_FAIL:
+      return {
+        loading: false,
+        current: state.current,
+        message: action.message,
       };
 
     default:
@@ -66,4 +73,4 @@ const RoleReducer = (
   }
 };
 
-export default RoleReducer;
+export default UserReducer;

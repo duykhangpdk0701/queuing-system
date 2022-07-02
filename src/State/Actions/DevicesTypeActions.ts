@@ -4,7 +4,7 @@ import {
   DeviceTypeDispatchType,
   DeviceTypeType,
   EDeviceType,
-} from "../ActionTypes/DeviceTypeActionTypes";
+} from "../ActionTypes/DeviceTypesActionTypes";
 import { db } from "../../Config/firebase";
 
 export const deviceTypeGetAction =

@@ -1,6 +1,7 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from "antd";
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./ManageAccountUpdateLayout.module.scss";
 
 const { Option } = Select;
@@ -137,9 +138,11 @@ const ManageAccountUpdateLayout = () => {
       </Row>
       <Row gutter={32} justify="center" className={styles.buttonContainer}>
         <Col>
-          <Button size="large" type="primary" ghost className={styles.button}>
-            Hủy bỏ
-          </Button>
+          <Link to="/setting/accounts">
+            <Button size="large" type="primary" ghost className={styles.button}>
+              Hủy bỏ
+            </Button>
+          </Link>
         </Col>
         <Col>
           <Button size="large" type="primary" className={styles.button}>

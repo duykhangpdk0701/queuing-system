@@ -6,7 +6,7 @@ import {
   RoleAddType,
   RoleDispatchType,
   RoleType,
-} from "../ActionTypes/RoleActionType";
+} from "../ActionTypes/RolesActionType";
 
 export const roleAddAction =
   (values: RoleAddType) => async (dispatch: Dispatch<RoleDispatchType>) => {

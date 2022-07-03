@@ -78,12 +78,12 @@ export const serviceAddAction =
 
       await setDoc(newService, inputService);
 
-      const roleRef = doc(db, "roles", newService.id);
-      const roleSnap = await getDoc(roleRef);
+      const serviceRef = doc(db, "services", newService.id);
+      const serviceSnap = await getDoc(serviceRef);
 
       dispatch({
         type: EServices.ADD_SUCCESS,
-        payload: { id: roleSnap.id, ...roleSnap.data() } as ServiceType,
+        payload: { id: serviceSnap.id, ...serviceSnap.data() } as ServiceType,
       });
     } catch (error) {
       dispatch({

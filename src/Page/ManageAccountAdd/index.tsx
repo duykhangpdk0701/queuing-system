@@ -38,9 +38,8 @@ const ManageAccountAdd = () => {
 
       await dispatch(userAddAction(actionValue));
       message.success("adding a role success!");
-    } catch (error) {
-      console.log(error);
-      message.error("adding a role error!");
+    } catch (error: any) {
+      message.error(error);
     }
   };
 

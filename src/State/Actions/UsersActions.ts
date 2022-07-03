@@ -1,4 +1,12 @@
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { Dispatch } from "react";
 import {
   EUser,
@@ -54,6 +62,24 @@ export const userAddAction =
         type: EUser.ADD_LOADING,
       });
 
+      const isExistUserUsernameQ = query(
+        collection(db, "users"),
+        where("username", "==", values.username)
+      );
+      const isExistUserUsernameSnap = await getDocs(isExistUserUsernameQ);
+
+      isExistUserUsernameSnap.forEach((value) => {
+        console.log(value.data());
+      });
+
+      if (!isExistUserUsernameSnap.empty) {
+        dispatch({
+          type: EUser.ADD_ERROR,
+          error: new Error("Tên đăng nhập đã tồn tại trong hệ thống"),
+        });
+        return Promise.reject("Tên đăng nhập đã tồn tại trong hệ thống");
+      }
+
       const newUser = doc(collection(db, "users"));
       await setDoc(newUser, {
         ...values,
@@ -63,14 +89,11 @@ export const userAddAction =
       const userRef = doc(db, "roles", newUser.id);
 
       const userSnap = await getDoc(userRef);
-      if (userSnap.exists()) {
-        dispatch({
-          type: EUser.ADD_SUCCESS,
-          payload: { id: userSnap.id, ...userSnap.data() } as UserType,
-        });
-      }
 
-      Promise.reject("adding was not success!");
+      dispatch({
+        type: EUser.ADD_SUCCESS,
+        payload: { id: userSnap.id, ...userSnap.data() } as UserType,
+      });
     } catch (error) {
       dispatch({
         type: EUser.ADD_ERROR,

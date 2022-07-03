@@ -1,11 +1,12 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from "antd";
-import React, { FC } from "react";
+import { useForm } from "antd/lib/form/Form";
+import React, { FC, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DeviceAddType } from "../../../State/ActionTypes/DevicesActionTypes";
 import { DeviceTypeType } from "../../../State/ActionTypes/DeviceTypesActionTypes";
 import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
-import styles from "./DeviceAddLayout.module.scss";
+import styles from "./DeviceUpdateLayout.module.scss";
 
 interface IDeviceAddLayout {
   deviceTypeLoading: boolean;
@@ -13,14 +14,23 @@ interface IDeviceAddLayout {
   serviceLoading: boolean;
   serviceData: ServiceType[];
   loading: boolean;
+  initialValues: any;
   onFinish: (values: DeviceAddType) => void;
 }
 
 const { Option } = Select;
 
-const DeviceAddLayout: FC<IDeviceAddLayout> = (props) => {
+const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
+  const [form] = useForm();
+
+  useEffect(() => {
+    form.setFieldsValue(props.initialValues);
+  }, [props.initialValues, form]);
+
   return (
     <Form
+      form={form}
+      name="device-update"
       layout="vertical"
       className={styles.section}
       onFinish={props.onFinish}
@@ -188,13 +198,13 @@ const DeviceAddLayout: FC<IDeviceAddLayout> = (props) => {
         </Col>
         <Col>
           <Button
+            loading={props.loading}
             size="large"
             type="primary"
             className={styles.button}
             htmlType="submit"
-            loading={props.loading}
           >
-            Thêm thiết bị
+            Cập nhật
           </Button>
         </Col>
       </Row>
@@ -202,4 +212,4 @@ const DeviceAddLayout: FC<IDeviceAddLayout> = (props) => {
   );
 };
 
-export default DeviceAddLayout;
+export default DeviceUpdateLayout;

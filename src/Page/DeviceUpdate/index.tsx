@@ -20,7 +20,6 @@ const DeviceUpdate = () => {
   const loading = useSelector((state: RootStore) => state.devices.loading);
   const { id } = useParams();
   const [initialValues, setInitialValues] = useState({});
-
   useEffect(() => {
     const fetchDeviceType = async () => {
       try {

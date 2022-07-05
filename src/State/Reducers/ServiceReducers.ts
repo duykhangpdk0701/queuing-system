@@ -23,6 +23,7 @@ const initialState: defaultState = {
       from: 1,
       to: 10,
     },
+    isActive: false,
   },
 };
 

@@ -37,7 +37,7 @@ const ManageAccountAdd = () => {
       };
 
       await dispatch(userAddAction(actionValue));
-      message.success("adding a role success!");
+      message.success("Thêm tài khoản thành công!");
     } catch (error: any) {
       message.error(error);
     }

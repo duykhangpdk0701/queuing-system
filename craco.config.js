@@ -50,6 +50,8 @@ module.exports = {
               "@checkbox-size": "20px",
               "@checkbox-color": "#4277FF",
               "@checkbox-border-radius": "4px",
+              //badge
+              "@badge-dot-size": "8px",
             },
             javascriptEnabled: true,
           },

@@ -3,7 +3,7 @@ import { Input } from "antd";
 import Icon from "@ant-design/icons";
 import lodash from "lodash";
 import { SizeType } from "antd/lib/config-provider/SizeContext";
-import { ReactComponent as searchSvg } from "../Assets/search.svg";
+import { ReactComponent as searchSvg } from "../../Assets/search.svg";
 
 interface IProps {
   onChange?: (value: string) => void;

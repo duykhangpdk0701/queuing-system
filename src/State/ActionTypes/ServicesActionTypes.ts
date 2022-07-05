@@ -25,6 +25,7 @@ export type ServiceType = {
   surfix: number;
   prefix: number;
   increase: { from: number; to: number };
+  isActive: boolean;
 };
 
 export type ServiceAddType = {

@@ -2,6 +2,7 @@ import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import Status from "../../../Components/Status";
 import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
 
 interface IServicesTable {
@@ -29,8 +30,15 @@ const columns: ColumnsType<ServiceType> = [
 
   {
     title: "Trạng thái hoạt động",
-    key: "active",
-    dataIndex: "active",
+    key: "isActive",
+    dataIndex: "isActive",
+    render(value, record, index) {
+      return value ? (
+        <Status type="success" text="Hoạt động" />
+      ) : (
+        <Status type="error" text="Ngưng hoạt động" />
+      );
+    },
   },
 
   {

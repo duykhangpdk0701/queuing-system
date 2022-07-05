@@ -12,6 +12,7 @@ interface DataType {
 }
 
 const columns: ColumnsType<DataType> = [
+  { title: "STT", key: "ordinalNumbers", dataIndex: "ordinalNumbers" },
   {
     title: "Tên đăng nhập",
     key: "username",
@@ -19,30 +20,26 @@ const columns: ColumnsType<DataType> = [
   },
 
   {
-    title: "Họ tên",
+    title: "Tên khách hàng",
     key: "name",
     dataIndex: "name",
   },
 
   {
-    title: "Số điện thoại",
-    key: "phoneNumber",
-    dataIndex: "phoneNumber",
+    title: "Tên dịch vụ",
+    key: "servicesName",
+    dataIndex: "servicesName",
   },
+  { title: "Thời gian cấp" },
+  { title: "Hạn sử dụng" },
 
   {
-    title: "Email",
-    key: "email",
-    dataIndex: "email",
+    title: "Trạng thái",
+    key: "status",
+    dataIndex: "status",
   },
 
-  {
-    title: "Trạng thái hoạt động",
-    key: "active",
-    dataIndex: "active",
-  },
-
-  {},
+  { title: "Nguồn cấp", key: "sourceProvider", dataIndex: "sourceProvider" },
 ];
 
 const data: DataType[] = [

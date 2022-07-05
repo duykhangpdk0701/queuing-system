@@ -4,6 +4,7 @@ import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { DeviceType } from "../../../State/ActionTypes/DevicesActionTypes";
 import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
+import Status from "../../../Components/Status";
 
 interface IDevicesTable {
   loading: boolean;
@@ -33,12 +34,26 @@ const columns: ColumnsType<DeviceType> = [
     title: "Trạng thái hoạt động",
     key: "isActive",
     dataIndex: "isActive",
+    render(value, record, index) {
+      return value ? (
+        <Status text="Hoạt động" type="success" />
+      ) : (
+        <Status text="Ngưng hoạt động" type="error" />
+      );
+    },
   },
 
   {
     title: "Trạng thái kết nối",
     key: "isConnect",
     dataIndex: "isConnect",
+    render(value, record, index) {
+      return value ? (
+        <Status text="Kết nối" type="success" />
+      ) : (
+        <Status text="Mất kết nối" type="error" />
+      );
+    },
   },
 
   {

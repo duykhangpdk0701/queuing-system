@@ -74,6 +74,7 @@ export const serviceAddAction =
         description: values.description,
         increase: values.increase,
         isReset: values.isReset,
+        isActive: true,
       };
 
       await setDoc(newService, inputService);

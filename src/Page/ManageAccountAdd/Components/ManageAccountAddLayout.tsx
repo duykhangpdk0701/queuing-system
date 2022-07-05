@@ -204,6 +204,7 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
         </Col>
         <Col>
           <Button
+            loading={props.loading}
             htmlType="submit"
             size="large"
             type="primary"

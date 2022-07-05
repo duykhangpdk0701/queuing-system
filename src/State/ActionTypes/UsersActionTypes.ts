@@ -7,6 +7,14 @@ export enum EUser {
   GET_LOADING = "USER_GET_LOADING",
   GET_SUCCESS = "USER_GET_SUCCESS",
   GET_ERROR = "USER_GET_ERROR",
+
+  GET_BY_ID_LOADING = "USER_GET_BY_ID_LOADING",
+  GET_BY_ID_SUCCESS = "USER_GET_BY_ID_SUCCESS",
+  GET_BY_ID_ERROR = "USER_GET_BY_ID_ERROR",
+
+  UPDATE_BY_ID_LOADING = "USER_UPDATE_BY_ID_LOADING",
+  UPDATE_BY_ID_SUCCESS = "USER_UPDATE_BY_ID_SUCCESS",
+  UPDATE_BY_ID_ERROR = "USER_UPDATE_BY_ID_ERROR",
 }
 
 export type UserType = {
@@ -17,9 +25,20 @@ export type UserType = {
   email: string;
   role: any;
   isActive: boolean;
+  password: string;
 };
 
 export type UserAddType = {
+  name: string;
+  username: string;
+  phoneNumber: string;
+  password: string;
+  email: string;
+  role: string;
+  isActive: boolean;
+};
+
+export type UserUpdateType = {
   name: string;
   username: string;
   phoneNumber: string;
@@ -62,6 +81,34 @@ export interface UserGetSuccess {
   payload: UserType[];
 }
 
+export interface UserGetByIdLoading {
+  type: typeof EUser.GET_BY_ID_LOADING;
+}
+
+export interface UserGetByIdError {
+  type: typeof EUser.GET_BY_ID_ERROR;
+  error: Error;
+}
+
+export interface UserGetByIdSuccess {
+  type: typeof EUser.GET_BY_ID_SUCCESS;
+  payload: UserType;
+}
+
+export interface UserUpdateByIdLoading {
+  type: typeof EUser.UPDATE_BY_ID_LOADING;
+}
+
+export interface UserUpdateByIdError {
+  type: typeof EUser.UPDATE_BY_ID_ERROR;
+  error: Error;
+}
+
+export interface UserUpdateByIdSuccess {
+  type: typeof EUser.UPDATE_BY_ID_SUCCESS;
+  payload: UserType;
+}
+
 export type UserDispatchType =
   | UserAddLoading
   | UserAddError
@@ -69,4 +116,10 @@ export type UserDispatchType =
   | UserGetLoading
   | UserGetError
   | UserGetSuccess
-  | UserAddFail;
+  | UserAddFail
+  | UserGetByIdLoading
+  | UserGetByIdError
+  | UserGetByIdSuccess
+  | UserUpdateByIdLoading
+  | UserUpdateByIdError
+  | UserUpdateByIdSuccess;

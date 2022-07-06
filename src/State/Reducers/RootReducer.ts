@@ -3,6 +3,9 @@ import DeviceReducer from "./DeviceReducer";
 import DevicesReducer from "./DevicesReducers";
 import DeviceTypeReducer from "./DeviceTypesReducers";
 import LoginReducer from "./LoginReducer";
+import ProviderReducers from "./ProviderReducers";
+import ProvidersReducers from "./ProvidersReducers";
+import ReportsReducers from "./ReportsReducers";
 import ResetPasswordReducer from "./ResetPasswordReducers";
 import RoleReducer from "./RolesReducer";
 import ServiceReducer from "./ServiceReducers";
@@ -21,6 +24,9 @@ const RootReducer = combineReducers({
   devices: DevicesReducer,
   device: DeviceReducer,
   service: ServiceReducer,
+  provider: ProviderReducers,
+  providers: ProvidersReducers,
+  reports: ReportsReducers,
 });
 
 export default RootReducer;

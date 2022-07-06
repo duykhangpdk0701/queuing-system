@@ -17,6 +17,9 @@ import ManageRole from "../Page/ManageRole";
 import ManageRoleAdd from "../Page/ManageRoleAdd";
 import ManagerRoleUpdate from "../Page/ManageRoleUpdate";
 import ProviderNumber from "../Page/ProviderNumber";
+import ProviderNumberAdd from "../Page/ProviderNumberAdd";
+import ProviderNumberDetail from "../Page/ProviderNumberDetail";
+import Reports from "../Page/Reports";
 import ServiceAdd from "../Page/ServiceAdd";
 import ServiceDetail from "../Page/ServiceDetail";
 import Services from "../Page/Services";
@@ -55,6 +58,12 @@ const ContextRoute = () => {
 
             <Route path="/provider">
               <Route index element={<ProviderNumber />} />
+              <Route path="add" element={<ProviderNumberAdd />} />
+              <Route path=":id" element={<ProviderNumberDetail />} />
+            </Route>
+
+            <Route path="/report">
+              <Route index element={<Reports />} />
             </Route>
 
             <Route path="/setting">

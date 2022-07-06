@@ -2,23 +2,16 @@ import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
 import Status from "../../../Components/Status";
-import { ProviderType } from "../../../State/ActionTypes/ProvidersActionTypes";
+import { ReportsType } from "../../../State/ActionTypes/ReportsActionTypes";
 
-interface IProviderNumberTable {
-  data: ProviderType[];
+interface IReportsTable {
+  data: ReportsType[];
   loading: boolean;
 }
 
-const columns: ColumnsType<ProviderType> = [
-  { title: "STT", key: "ordinalNumber", dataIndex: "ordinalNumber" },
-
-  {
-    title: "Tên khách hàng",
-    key: "customerName",
-    dataIndex: "customerName",
-  },
+const columns: ColumnsType<ReportsType> = [
+  { title: "Số thứ tự", key: "ordinalNumber", dataIndex: "ordinalNumber" },
 
   {
     title: "Tên dịch vụ",
@@ -39,16 +32,7 @@ const columns: ColumnsType<ProviderType> = [
   },
 
   {
-    title: "Hạn sử dụng",
-    key: "dateValid",
-    dataIndex: "dateValid",
-    render(value, record, index) {
-      return <>{moment(value.toDate()).format("HH:mm - DD/MM/YYYY")}</>;
-    },
-  },
-
-  {
-    title: "Trạng thái",
+    title: "Tình trạng",
     key: "status",
     dataIndex: "status",
     render(value, record, index) {
@@ -73,22 +57,9 @@ const columns: ColumnsType<ProviderType> = [
       return <>{value.name}</>;
     },
   },
-  {
-    key: "details",
-    render(value, record, index) {
-      return (
-        <Link
-          to={`/provider/${record.id}`}
-          style={{ color: "#4277FF", textDecorationLine: "underline" }}
-        >
-          Chi tiết
-        </Link>
-      );
-    },
-  },
 ];
 
-const ProviderNumberTable: FC<IProviderNumberTable> = (props) => {
+const ReportsTable: FC<IReportsTable> = (props) => {
   return (
     <Table
       loading={props.loading}
@@ -101,4 +72,4 @@ const ProviderNumberTable: FC<IProviderNumberTable> = (props) => {
   );
 };
 
-export default ProviderNumberTable;
+export default ReportsTable;

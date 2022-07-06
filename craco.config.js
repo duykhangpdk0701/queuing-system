@@ -52,6 +52,11 @@ module.exports = {
               "@checkbox-border-radius": "4px",
               //badge
               "@badge-dot-size": "8px",
+              // Breadcrumb
+              "@breadcrumb-base-color": "#7E7D88",
+              "@breadcrumb-font-size": "20px",
+              "@breadcrumb-last-item-color": "@primary-color",
+              "@breadcrumb-separator-margin": "0 8px",
             },
             javascriptEnabled: true,
           },

@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, Col, Row, Tooltip, Typography } from "antd";
+import { Card, Col, Row, Select, Typography } from "antd";
 import styles from "./ChartDashboard.module.scss";
-import Icon from "@ant-design/icons";
+import Icon, { CaretDownOutlined } from "@ant-design/icons";
 import Chart from "react-apexcharts";
 import { ReactComponent as providerNumberSvg } from "../../../Assets/ProviderNumber.svg";
 import { ReactComponent as providerNumberUsedSvg } from "../../../Assets/ProviderNumberUsed.svg";
@@ -10,13 +10,15 @@ import { ReactComponent as providerNumberAbortSvg } from "../../../Assets/Provid
 
 const { Title, Text } = Typography;
 
+const categories: Record<string, string[]> = {
+  week: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "CN"],
+  month: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+};
+
 const chartLineData = [
   {
     name: "Doanh Thu",
-    data: [
-      140000000, 260000000, 200000000, 150000000, 210000000, 180000000,
-      150000000,
-    ],
+    data: [1400, 2600, 2000, 1500, 2100, 1800, 1500],
   },
 ];
 
@@ -40,12 +42,22 @@ const options: ApexCharts.ApexOptions = {
 
   colors: ["#5185F7"],
 
+  fill: {
+    type: "gradient",
+    gradient: {
+      shadeIntensity: 1,
+      opacityFrom: 0.7,
+      opacityTo: 0.9,
+      stops: [0, 80, 100],
+    },
+  },
+
   dataLabels: {
     enabled: false,
   },
 
   xaxis: {
-    categories: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "CN"],
+    categories: categories["week"],
   },
 
   yaxis: {
@@ -161,8 +173,36 @@ const ChartDashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Card className={styles.areaChartCard} bodyStyle={{ height: "100%" }}>
-        <div style={{ height: "100%", width: "100%" }}>
+      <Card
+        className={styles.areaChartCard}
+        bodyStyle={{ height: "100%", display: "flex", flexDirection: "column" }}
+      >
+        <div className={styles.chartLabel}>
+          <div className={styles.chartTitleContainer}>
+            <Title className={styles.chartTitle} level={4}>
+              Bảng thống kê theo tuần
+            </Title>
+            <Text className={styles.chartSubTitle}>Tháng 11/2021</Text>
+          </div>
+          <div>
+            <Text className={styles.label}>Xem theo</Text>
+            <Select
+              size="large"
+              defaultValue="week"
+              className={styles.select}
+              suffixIcon={
+                <CaretDownOutlined
+                  style={{ fontSize: "20px", color: "#FF7506" }}
+                />
+              }
+            >
+              <Select.Option value="week">Tuần</Select.Option>
+              <Select.Option value="day">Ngày</Select.Option>
+              <Select.Option value="month">Tháng</Select.Option>
+            </Select>
+          </div>
+        </div>
+        <div className={styles.chartContainer}>
           <Chart
             height="100%"
             width="99.9%"

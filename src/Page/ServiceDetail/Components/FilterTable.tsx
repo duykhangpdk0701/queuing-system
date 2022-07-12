@@ -8,7 +8,7 @@ const FilterTable = () => {
   return (
     <Card className={styles.card}>
       <Form layout="vertical">
-        <Row gutter={12}>
+        <Row gutter={12} style={{ height: "100%" }}>
           <Col flex="auto">
             <Space size={12}>
               <Form.Item

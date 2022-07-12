@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import DashboardReducer from "./DashboardReducers";
 import DeviceReducer from "./DeviceReducer";
 import DevicesReducer from "./DevicesReducers";
 import DeviceTypeReducer from "./DeviceTypesReducers";
@@ -27,6 +28,7 @@ const RootReducer = combineReducers({
   provider: ProviderReducers,
   providers: ProvidersReducers,
   reports: ReportsReducers,
+  dashboard: DashboardReducer,
 });
 
 export default RootReducer;

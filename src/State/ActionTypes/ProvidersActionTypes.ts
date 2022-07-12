@@ -27,6 +27,10 @@ export type ProviderType = {
   status: number;
 };
 
+export type ProviderAddType = {
+  service: string;
+};
+
 export interface ProvidersGetLoading {
   type: typeof EProviders.GET_LOADING;
 }

@@ -19,47 +19,43 @@ const ServiceDetailLayout: FC<IServiceDetailLayout> = (props) => {
   const navigate = useNavigate();
 
   return (
-    <Row className={styles.section}>
-      <Col span={24}>
-        <Title className={styles.title} level={2}>
-          Quản lý dịch vụ
-        </Title>
-      </Col>
-      <Col flex="auto">
-        <Row>
-          <Col flex="auto">
-            <Row gutter={24}>
-              <Col span={8}>
-                <Detail data={props.data} />
-              </Col>
-              <Col span={16}>
-                <FilterTable />
-              </Col>
-            </Row>
-          </Col>
-          <Col flex="100px">
-            <ButtonSide
-              content={[
-                {
-                  label: "Cập nhật danh sách",
-                  icon: editSvg,
-                  onClick: () => {
-                    navigate("/services/add");
-                  },
+    <div className={styles.section}>
+      <Title className={styles.title} level={2}>
+        Quản lý dịch vụ
+      </Title>
+      <Row wrap={false} style={{ height: "100%" }}>
+        <Col flex="auto">
+          <Row gutter={24} style={{ height: "100%" }}>
+            <Col span={8}>
+              <Detail data={props.data} />
+            </Col>
+            <Col span={16}>
+              <FilterTable />
+            </Col>
+          </Row>
+        </Col>
+        <Col flex="100px">
+          <ButtonSide
+            content={[
+              {
+                label: "Cập nhật danh sách",
+                icon: editSvg,
+                onClick: () => {
+                  navigate("/services/add");
                 },
-                {
-                  label: "Quay lại",
-                  icon: backSvg,
-                  onClick: () => {
-                    navigate("/services");
-                  },
+              },
+              {
+                label: "Quay lại",
+                icon: backSvg,
+                onClick: () => {
+                  navigate("/services");
                 },
-              ]}
-            />
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+              },
+            ]}
+          />
+        </Col>
+      </Row>
+    </div>
   );
 };
 

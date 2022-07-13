@@ -7,10 +7,15 @@ import {
   DayValue,
 } from "@hassanmojab/react-modern-calendar-datepicker";
 import { Link } from "react-router-dom";
+import { DashBoardType } from "../../../State/ActionTypes/DashBoardType";
+import { formatNumber } from "../../../Utils/formatNumber";
+import { toPercent } from "../../../Utils/toPercent";
 
 interface ISummary {
   date: DayValue;
   setDate: React.Dispatch<React.SetStateAction<DayValue>>;
+  data: DashBoardType;
+  loading: boolean;
 }
 
 const { Title, Text } = Typography;
@@ -33,23 +38,37 @@ const Summary: FC<ISummary> = (props) => {
               <div className={styles.progressContainer}>
                 <Progress
                   type="circle"
-                  percent={90}
+                  percent={toPercent(
+                    props.data.devices.summary,
+                    props.data.devices.active
+                  )}
                   width={60}
                   showInfo={false}
                   strokeColor="#FF7506"
                 />
                 <Progress
                   type="circle"
-                  percent={10}
+                  percent={toPercent(
+                    props.data.devices.summary,
+                    props.data.devices.notActive
+                  )}
                   width={50}
                   className={styles.progress}
                   showInfo={false}
                   strokeColor="#7E7D88"
                 />
-                <Text className={styles.progressValue}>90%</Text>
+                <Text className={styles.progressValue}>
+                  {toPercent(
+                    props.data.devices.summary,
+                    props.data.devices.active
+                  )}
+                  %
+                </Text>
               </div>
               <div className={styles.dataContainer}>
-                <Text className={styles.dataValue}>4.221</Text>
+                <Text className={styles.dataValue}>
+                  {formatNumber(props.data.devices.summary)}
+                </Text>
                 <div style={{ color: "#FF7506" }}>
                   <Monitor size={14} className={styles.dataLabelIcon} />
                   Thiết bị
@@ -75,7 +94,7 @@ const Summary: FC<ISummary> = (props) => {
                     style={{ color: "#FF7506" }}
                     className={styles.dataTypeValue}
                   >
-                    3.799
+                    {props.data.devices.active}
                   </Text>
                 </div>
                 <div className={styles.dataTypeWrapper}>
@@ -92,7 +111,7 @@ const Summary: FC<ISummary> = (props) => {
                     style={{ color: "#FF7506" }}
                     className={styles.dataTypeValue}
                   >
-                    422
+                    {props.data.devices.notActive}
                   </Text>
                 </div>
               </Space>
@@ -110,24 +129,38 @@ const Summary: FC<ISummary> = (props) => {
               <div className={styles.progressContainer}>
                 <Progress
                   type="circle"
-                  percent={90}
+                  percent={toPercent(
+                    props.data.services.summary,
+                    props.data.services.active
+                  )}
                   width={60}
                   showInfo={false}
                   strokeColor="#4277FF"
                 />
                 <Progress
                   type="circle"
-                  percent={10}
+                  percent={toPercent(
+                    props.data.services.summary,
+                    props.data.services.notActive
+                  )}
                   width={50}
                   className={styles.progress}
                   showInfo={false}
                   strokeColor="#7E7D88"
                 />
-                <Text className={styles.progressValue}>76%</Text>
+                <Text className={styles.progressValue}>
+                  {toPercent(
+                    props.data.services.summary,
+                    props.data.services.active
+                  )}
+                  %
+                </Text>
               </div>
 
               <div className={styles.dataContainer}>
-                <Text className={styles.dataValue}>4.221</Text>
+                <Text className={styles.dataValue}>
+                  {props.data.services.summary}
+                </Text>
                 <div style={{ color: "#4277FF" }}>
                   <Monitor size={14} className={styles.dataLabelIcon} /> Dịch vụ
                   <Text className={styles.dataLabel}></Text>
@@ -152,7 +185,7 @@ const Summary: FC<ISummary> = (props) => {
                     style={{ color: "#4277FF" }}
                     className={styles.dataTypeValue}
                   >
-                    3.799
+                    {props.data.services.active}
                   </Text>
                 </div>
                 <div className={styles.dataTypeWrapper}>
@@ -169,7 +202,7 @@ const Summary: FC<ISummary> = (props) => {
                     style={{ color: "#4277FF" }}
                     className={styles.dataTypeValue}
                   >
-                    422
+                    {props.data.services.notActive}
                   </Text>
                 </div>
               </Space>
@@ -187,14 +220,20 @@ const Summary: FC<ISummary> = (props) => {
               <div className={styles.progressContainer}>
                 <Progress
                   type="circle"
-                  percent={90}
+                  percent={toPercent(
+                    props.data.providers.summary,
+                    props.data.providers.waiting
+                  )}
                   width={60}
                   showInfo={false}
                   strokeColor="#35C75A"
                 />
                 <Progress
                   type="circle"
-                  percent={10}
+                  percent={toPercent(
+                    props.data.providers.summary,
+                    props.data.providers.used
+                  )}
                   width={50}
                   className={styles.progress}
                   showInfo={false}
@@ -202,17 +241,28 @@ const Summary: FC<ISummary> = (props) => {
                 />
                 <Progress
                   type="circle"
-                  percent={10}
+                  percent={toPercent(
+                    props.data.providers.summary,
+                    props.data.providers.reject
+                  )}
                   width={40}
                   className={styles.progress}
                   showInfo={false}
                   strokeColor="#F178B6"
                 />
-                <Text className={styles.progressValue}>86%</Text>
+                <Text className={styles.progressValue}>
+                  {toPercent(
+                    props.data.providers.summary,
+                    props.data.providers.waiting
+                  )}
+                  %
+                </Text>
               </div>
 
               <div className={styles.dataContainer}>
-                <Text className={styles.dataValue}>4.221</Text>
+                <Text className={styles.dataValue}>
+                  {props.data.providers.summary}
+                </Text>
                 <div style={{ color: "#35C75A" }}>
                   <Monitor size={14} className={styles.dataLabelIcon} />
                   Cấp số
@@ -236,7 +286,7 @@ const Summary: FC<ISummary> = (props) => {
                     style={{ color: "#35C75A" }}
                     className={styles.dataTypeValue}
                   >
-                    3.799
+                    {props.data.providers.waiting}
                   </Text>
                 </div>
                 <div className={styles.dataTypeWrapper}>
@@ -244,14 +294,14 @@ const Summary: FC<ISummary> = (props) => {
                     color="#7E7D88"
                     style={{ width: "110px" }}
                     text={
-                      <Text className={styles.dataTypeLabel}>Đa sử dụng</Text>
+                      <Text className={styles.dataTypeLabel}>Đã sử dụng</Text>
                     }
                   />
                   <Text
                     className={styles.dataTypeValue}
                     style={{ color: "#35C75A" }}
                   >
-                    422
+                    {props.data.providers.used}
                   </Text>
                 </div>
                 <div className={styles.dataTypeWrapper}>
@@ -264,7 +314,7 @@ const Summary: FC<ISummary> = (props) => {
                     style={{ color: "#35C75A" }}
                     className={styles.dataTypeValue}
                   >
-                    422
+                    {props.data.providers.reject}
                   </Text>
                 </div>
               </Space>

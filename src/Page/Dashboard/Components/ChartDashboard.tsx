@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Card, Col, Row, Select, Typography } from "antd";
 import styles from "./ChartDashboard.module.scss";
 import Icon, { CaretDownOutlined } from "@ant-design/icons";
@@ -7,6 +7,12 @@ import { ReactComponent as providerNumberSvg } from "../../../Assets/ProviderNum
 import { ReactComponent as providerNumberUsedSvg } from "../../../Assets/ProviderNumberUsed.svg";
 import { ReactComponent as providerNumberWaitingSvg } from "../../../Assets/ProviderNumberWaiting.svg";
 import { ReactComponent as providerNumberAbortSvg } from "../../../Assets/ProviderNumberAbort.svg";
+import { DashBoardType } from "../../../State/ActionTypes/DashBoardType";
+
+interface IChartDashboard {
+  data: DashBoardType;
+  loading: boolean;
+}
 
 const { Title, Text } = Typography;
 
@@ -80,7 +86,7 @@ const options: ApexCharts.ApexOptions = {
   },
 };
 
-const ChartDashboard = () => {
+const ChartDashboard: FC<IChartDashboard> = (props) => {
   return (
     <div className={styles.section}>
       <Title level={2} className={styles.title}>
@@ -101,7 +107,7 @@ const ChartDashboard = () => {
               </div>
             </div>
             <div className={styles.providerNumberDataValue}>
-              <Text>4.221</Text>
+              <Text>{props.data.providers.summary}</Text>
               <div></div>
             </div>
           </Card>
@@ -123,7 +129,7 @@ const ChartDashboard = () => {
               </div>
             </div>
             <div className={styles.providerNumberDataValue}>
-              <Text>3.721</Text>
+              <Text>{props.data.providers.used}</Text>
               <div></div>
             </div>
           </Card>
@@ -145,7 +151,7 @@ const ChartDashboard = () => {
               </div>
             </div>
             <div className={styles.providerNumberDataValue}>
-              <Text>468</Text>
+              <Text>{props.data.providers.waiting}</Text>
               <div></div>
             </div>
           </Card>
@@ -167,7 +173,7 @@ const ChartDashboard = () => {
               </div>
             </div>
             <div className={styles.providerNumberDataValue}>
-              <Text>32</Text>
+              <Text>{props.data.providers.reject}</Text>
               <div></div>
             </div>
           </Card>

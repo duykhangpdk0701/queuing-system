@@ -7,6 +7,7 @@ import {
   orderBy,
   query,
   setDoc,
+  where,
 } from "firebase/firestore";
 import moment from "moment";
 import { Dispatch } from "react";
@@ -58,6 +59,56 @@ export const providerGetAction =
     } catch (error) {
       dispatch({
         type: EProviders.GET_ERROR,
+        error: error as Error,
+      });
+    }
+  };
+
+export const providerGetByServiceIdAction =
+  (serviceId: string) => async (dispatch: Dispatch<ProvidersDispatchType>) => {
+    try {
+      dispatch({
+        type: EProviders.GET_BY_SERVICE_ID_LOADING,
+      });
+
+      const serviceRef = doc(db, `/services/${serviceId}`);
+      const serviceData = await getDoc(serviceRef);
+      console.log(serviceData.data());
+
+      const providers: ProviderType[] = [];
+      const queryProviders = await getDocs(
+        query(collection(db, "providers"), where("services", "==", serviceRef))
+      );
+      queryProviders.forEach(async (values) => {
+        const temp = values.data() as ProviderType;
+        const providerId = values.id;
+
+        providers.push({
+          ...temp,
+          id: providerId,
+        });
+      });
+
+      let newProvider: ProviderType[] = [];
+      for (const values of providers) {
+        const service = await getDoc(values.services);
+        const sourceProvider = await getDoc(values.sourceProvider);
+        newProvider.push({
+          ...values,
+          services: service.data(),
+          sourceProvider: sourceProvider.data(),
+        });
+      }
+
+      dispatch({
+        type: EProviders.GET_BY_SERVICE_ID_SUCCESS,
+        subPayload: newProvider.sort(
+          (a, b) => a.ordinalNumber - b.ordinalNumber
+        ),
+      });
+    } catch (error) {
+      dispatch({
+        type: EProviders.GET_BY_SERVICE_ID_ERROR,
         error: error as Error,
       });
     }

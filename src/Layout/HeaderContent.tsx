@@ -132,7 +132,7 @@ const HeaderContent = () => {
           <Avatar size={40} src={<Image src={avatar} preview={false} />} />
           <div className={styles.nameContainer}>
             <Text className={styles.hello}>Xin chào</Text>
-            <Text className={styles.name}>Phùng Duy Khang</Text>
+            <Text className={styles.name}>{localStorage.getItem("name")}</Text>
           </div>
         </Link>
       </div>

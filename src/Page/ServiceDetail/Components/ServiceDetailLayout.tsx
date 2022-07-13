@@ -8,9 +8,12 @@ import FilterTable from "./FilterTable";
 import styles from "./ServiceDetailLayout.module.scss";
 import { ReactComponent as backSvg } from "../../../Assets/BackSquare.svg";
 import { ReactComponent as editSvg } from "../../../Assets/Edit.svg";
+import { ProviderType } from "../../../State/ActionTypes/ProvidersActionTypes";
 
 interface IServiceDetailLayout {
   data: ServiceType;
+  providerData: ProviderType[];
+  providerLoading: boolean;
 }
 
 const { Title } = Typography;
@@ -30,7 +33,10 @@ const ServiceDetailLayout: FC<IServiceDetailLayout> = (props) => {
               <Detail data={props.data} />
             </Col>
             <Col span={16}>
-              <FilterTable />
+              <FilterTable
+                providerData={props.providerData}
+                providerLoading={props.providerLoading}
+              />
             </Col>
           </Row>
         </Col>

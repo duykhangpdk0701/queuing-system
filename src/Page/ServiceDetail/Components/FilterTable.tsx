@@ -1,10 +1,16 @@
 import { Card, Col, DatePicker, Form, Row, Space, Typography } from "antd";
-import React from "react";
+import React, { FC } from "react";
 import SearchInput from "../../../Components/SearchInput";
+import { ProviderType } from "../../../State/ActionTypes/ProvidersActionTypes";
 import styles from "./FilterTable.module.scss";
 import ServiceDetailTable from "./ServiceDetailTable";
 
-const FilterTable = () => {
+interface IFilterTable {
+  providerData: ProviderType[];
+  providerLoading: boolean;
+}
+
+const FilterTable: FC<IFilterTable> = (props) => {
   return (
     <Card className={styles.card}>
       <Form layout="vertical">
@@ -40,7 +46,10 @@ const FilterTable = () => {
           </Col>
         </Row>
       </Form>
-      <ServiceDetailTable />
+      <ServiceDetailTable
+        providerData={props.providerData}
+        providerLoading={props.providerLoading}
+      />
     </Card>
   );
 };

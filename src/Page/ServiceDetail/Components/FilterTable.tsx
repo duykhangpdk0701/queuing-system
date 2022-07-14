@@ -1,4 +1,14 @@
-import { Card, Col, DatePicker, Form, Row, Space, Typography } from "antd";
+import { CaretDownOutlined } from "@ant-design/icons";
+import {
+  Card,
+  Col,
+  DatePicker,
+  Form,
+  Row,
+  Select,
+  Space,
+  Typography,
+} from "antd";
 import React, { FC } from "react";
 import SearchInput from "../../../Components/SearchInput";
 import { ProviderType } from "../../../State/ActionTypes/ProvidersActionTypes";
@@ -9,6 +19,8 @@ interface IFilterTable {
   providerData: ProviderType[];
   providerLoading: boolean;
 }
+
+const { Option } = Select;
 
 const FilterTable: FC<IFilterTable> = (props) => {
   return (
@@ -21,7 +33,20 @@ const FilterTable: FC<IFilterTable> = (props) => {
                 className={styles.selectContianer}
                 label={<Typography.Text strong>Trạng thái</Typography.Text>}
               >
-                <SearchInput size="large" />
+                <Select
+                  size="large"
+                  defaultValue={null}
+                  suffixIcon={
+                    <CaretDownOutlined
+                      style={{ fontSize: "20px", color: "#FF7506" }}
+                    />
+                  }
+                >
+                  <Option value={null}>Tất cả</Option>
+                  <Option value={0}>Bỏ qua</Option>
+                  <Option value={1}>Đang chờ</Option>
+                  <Option value={2}>Đã sử dụng</Option>
+                </Select>
               </Form.Item>
 
               <Form.Item

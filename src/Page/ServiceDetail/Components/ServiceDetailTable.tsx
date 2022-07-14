@@ -11,7 +11,7 @@ interface IServiceDetailTable {
 
 const columns: ColumnsType<ProviderType> = [
   {
-    title: "Mã thiết bị",
+    title: "Số thứ tự",
     key: "ordinalNumber",
     dataIndex: "ordinalNumber",
   },

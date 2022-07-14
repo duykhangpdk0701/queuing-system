@@ -11,6 +11,7 @@ import ResetPasswordReducer from "./ResetPasswordReducers";
 import RoleReducer from "./RolesReducer";
 import ServiceReducer from "./ServiceReducers";
 import ServicesReducer from "./ServicesReducers";
+import SourceProviderReducer from "./SourceProviderReducers";
 import UserReducer from "./UserReducers";
 import UsersReducer from "./UsersReducer";
 
@@ -29,6 +30,7 @@ const RootReducer = combineReducers({
   providers: ProvidersReducers,
   reports: ReportsReducers,
   dashboard: DashboardReducer,
+  sourceProvider: SourceProviderReducer,
 });
 
 export default RootReducer;

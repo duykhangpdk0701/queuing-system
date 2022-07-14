@@ -29,11 +29,13 @@ const DatePickerRange = forwardRef((props: IDatePickerRange, ref) => {
 
   useEffect(() => {
     props.value && setValue(props.value);
-  }, [props, props.value]);
+    // eslint-disable-next-line
+  }, [props.value]);
 
   useEffect(() => {
     props.onChange?.(value);
-  }, [value, props]);
+    // eslint-disable-next-line
+  }, [value]);
 
   const handleOnchangeCalendar = (e: DayRange) => {
     setCalendarValue(e);

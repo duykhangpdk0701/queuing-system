@@ -39,6 +39,25 @@ const ReportsReducers = (
         error: action.error,
       };
 
+    case EReports.GET_WITH_FILTER_LOADING:
+      return {
+        loading: true,
+        current: state.current,
+      };
+
+    case EReports.GET_WITH_FILTER_SUCCESS:
+      return {
+        loading: false,
+        current: action.payload,
+      };
+
+    case EReports.GET_WITH_FILTER_ERROR:
+      return {
+        loading: false,
+        current: state.current,
+        error: action.error,
+      };
+
     default:
       return {
         loading: false,

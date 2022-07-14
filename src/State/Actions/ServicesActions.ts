@@ -12,6 +12,7 @@ import {
   EServices,
   ServiceAddType,
   ServiceDispatchType,
+  ServiceFilterType,
   ServiceType,
   ServiceUpdateType,
 } from "../ActionTypes/ServicesActionTypes";
@@ -43,6 +44,47 @@ export const serviceGetAction =
     } catch (error) {
       dispatch({
         type: EServices.GET_ERROR,
+        error: error as Error,
+      });
+    }
+  };
+
+export const serviceGetByFilterAction =
+  (values: ServiceFilterType) =>
+  async (dispatch: Dispatch<ServiceDispatchType>) => {
+    try {
+      dispatch({
+        type: EServices.GET_BY_FILTER_LOADING,
+      });
+
+      const services: ServiceType[] = [];
+      const queryServices = await getDocs(collection(db, "services"));
+      queryServices.forEach(async (values) => {
+        const temp = values.data() as ServiceType;
+        const serviceId = values.id;
+
+        services.push({
+          ...temp,
+          id: serviceId,
+        });
+      });
+
+      const filterService = services.filter((value) => {
+        if (values.isActive !== null && value.isActive !== values.isActive) {
+          return false;
+        }
+
+        return true;
+      });
+
+      services.reverse();
+      dispatch({
+        type: EServices.GET_BY_FILTER_SUCCESS,
+        payload: filterService,
+      });
+    } catch (error) {
+      dispatch({
+        type: EServices.GET_BY_FILTER_ERROR,
         error: error as Error,
       });
     }

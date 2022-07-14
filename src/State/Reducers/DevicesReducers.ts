@@ -58,6 +58,25 @@ const DevicesReducer = (
         current: action.payload,
       };
 
+    case EDevices.GET_BY_FILTER_LOADING:
+      return {
+        loading: true,
+        current: state.current,
+      };
+
+    case EDevices.GET_BY_FILTER_ERROR:
+      return {
+        loading: false,
+        current: state.current,
+        error: action.error,
+      };
+
+    case EDevices.GET_BY_FILTER_SUCCESS:
+      return {
+        loading: false,
+        current: action.payload,
+      };
+
     case EDevices.UPDATE_BY_ID_LOADING:
       return {
         loading: true,

@@ -1,5 +1,6 @@
-import { Col, DatePicker, Form, Row, Typography } from "antd";
+import { Col, Form, Row, Typography } from "antd";
 import React from "react";
+import DatePickerRange from "../../../Components/DatePickerRange";
 import SearchInput from "../../../Components/SearchInput";
 import styles from "./HistoryLayout.module.scss";
 import HistoryTable from "./HistoryTable";
@@ -13,12 +14,7 @@ const HistoryLayout = () => {
             <Form.Item
               label={<Typography.Text strong>Chọn thời gian </Typography.Text>}
             >
-              <Form.Item noStyle>
-                <DatePicker size="large" />
-              </Form.Item>
-              <Form.Item noStyle>
-                <DatePicker size="large" />
-              </Form.Item>
+              <DatePickerRange />
             </Form.Item>
           </Col>
           <Col flex="300px">

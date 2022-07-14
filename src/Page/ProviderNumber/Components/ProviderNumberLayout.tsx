@@ -1,5 +1,5 @@
 import { CaretDownOutlined } from "@ant-design/icons";
-import { Col, DatePicker, Form, Row, Select, Space, Typography } from "antd";
+import { Col, Form, Row, Select, Space, Typography } from "antd";
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonSide from "../../../Components/ButtonSide";
@@ -10,6 +10,7 @@ import ProviderNumberTable from "./ProviderNumberTable";
 import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
 import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
 import { SourceProviderType } from "../../../State/ActionTypes/SourceProvidesActionTypes";
+import DatePickerRange from "../../../Components/DatePickerRange";
 
 interface IProviderNumberLayout {
   loading: boolean;
@@ -103,12 +104,7 @@ const ProviderNumberLayout: FC<IProviderNumberLayout> = (props) => {
               <Form.Item
                 label={<Typography.Text strong>Chọn thời gian</Typography.Text>}
               >
-                <Form.Item noStyle>
-                  <DatePicker size="large" />
-                </Form.Item>
-                <Form.Item noStyle>
-                  <DatePicker size="large" />
-                </Form.Item>
+                <DatePickerRange />
               </Form.Item>
             </Space>
           </Col>

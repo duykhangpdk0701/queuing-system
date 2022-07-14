@@ -58,6 +58,25 @@ const ServicesReducer = (
         error: action.error,
       };
 
+    case EServices.GET_BY_FILTER_LOADING:
+      return {
+        loading: true,
+        current: state.current,
+      };
+
+    case EServices.GET_BY_FILTER_SUCCESS:
+      return {
+        loading: false,
+        current: action.payload,
+      };
+
+    case EServices.GET_BY_FILTER_ERROR:
+      return {
+        loading: false,
+        current: state.current,
+        error: action.error,
+      };
+
     case EServices.UPDATE_BY_ID_LOADING:
       return {
         loading: true,

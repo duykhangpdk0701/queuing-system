@@ -7,6 +7,10 @@ export enum EDevices {
   GET_BY_ID_SUCCESS = "DEVICES_GET_BY_ID_SUCCESS",
   GET_BY_ID_ERROR = "DEVICES_GET_BY_ID_ERROR",
 
+  GET_BY_FILTER_LOADING = "DEVICES_GET_BY_FILTER_LOADING",
+  GET_BY_FILTER_SUCCESS = "DEVICES_GET_BY_FILTER_SUCCESS",
+  GET_BY_FILTER_ERROR = "DEVICES_GET_BY_FILTER_ERROR",
+
   UPDATE_BY_ID_LOADING = "DEVICES_UPDATE_BY_ID_LOADING",
   UPDATE_BY_ID_SUCCESS = "DEVICES_UPDATE_BY_ID_SUCCESS",
   UPDATE_BY_ID_ERROR = "DEVICES_UPDATE_BY_ID_ERROR",
@@ -27,6 +31,12 @@ export type DeviceType = {
   services: any[];
   isActive: boolean;
   isConnect: boolean;
+};
+
+export type DeviceFilterType = {
+  isActive: boolean | null;
+  isConnect: boolean | null;
+  search: string;
 };
 
 export type DeviceAddType = {
@@ -77,6 +87,20 @@ export interface DeviceGetByIdSuccess {
   payload: DeviceType;
 }
 
+export interface DeviceGetByFilterLoading {
+  type: typeof EDevices.GET_BY_FILTER_LOADING;
+}
+
+export interface DeviceGetByFilterError {
+  type: typeof EDevices.GET_BY_FILTER_ERROR;
+  error: Error;
+}
+
+export interface DeviceGetByFilterSuccess {
+  type: typeof EDevices.GET_BY_FILTER_SUCCESS;
+  payload: DeviceType[];
+}
+
 export interface DeviceUpdateByIdLoading {
   type: typeof EDevices.UPDATE_BY_ID_LOADING;
 }
@@ -117,4 +141,7 @@ export type DevicesDispatchType =
   | DeviceUpdateByIdSuccess
   | DeviceAddLoading
   | DeviceAddError
-  | DeviceAddSuccess;
+  | DeviceAddSuccess
+  | DeviceGetByFilterLoading
+  | DeviceGetByFilterError
+  | DeviceGetByFilterSuccess;

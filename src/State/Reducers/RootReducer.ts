@@ -3,6 +3,7 @@ import DashboardReducer from "./DashboardReducers";
 import DeviceReducer from "./DeviceReducer";
 import DevicesReducer from "./DevicesReducers";
 import DeviceTypeReducer from "./DeviceTypesReducers";
+import HistoryReducer from "./HistoryReducers";
 import LoginReducer from "./LoginReducer";
 import ProviderReducers from "./ProviderReducers";
 import ProvidersReducers from "./ProvidersReducers";
@@ -31,6 +32,7 @@ const RootReducer = combineReducers({
   reports: ReportsReducers,
   dashboard: DashboardReducer,
   sourceProvider: SourceProviderReducer,
+  history: HistoryReducer,
 });
 
 export default RootReducer;

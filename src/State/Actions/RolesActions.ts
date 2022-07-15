@@ -7,6 +7,7 @@ import {
   RoleDispatchType,
   RoleType,
 } from "../ActionTypes/RolesActionType";
+import { historyAddAction } from "./HistoryActions";
 
 export const roleAddAction =
   (values: RoleAddType) => async (dispatch: Dispatch<RoleDispatchType>) => {
@@ -20,6 +21,7 @@ export const roleAddAction =
       const roleRef = doc(db, "roles", newRole.id);
       const roleSnap = await getDoc(roleRef);
       if (roleSnap.exists()) {
+        historyAddAction("Thêm vai trò", "roles", roleRef.id);
         dispatch({
           type: ERole.ADD_SUCCESS,
           payload: { id: roleSnap.id, ...roleSnap.data() } as RoleType,

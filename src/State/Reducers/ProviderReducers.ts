@@ -1,7 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 import {
   EProviders,
-  IProvidersDispatchType,
+  ProvidersDispatchType,
   ProviderType,
 } from "../ActionTypes/ProvidersActionTypes";
 
@@ -29,7 +29,7 @@ const initialState: defaultState = {
 
 const ProviderReducers = (
   state: defaultState = initialState,
-  action: IProvidersDispatchType
+  action: ProvidersDispatchType
 ) => {
   switch (action.type) {
     case EProviders.GET_BY_ID_LOADING:

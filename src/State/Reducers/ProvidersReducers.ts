@@ -1,6 +1,6 @@
 import {
   EProviders,
-  IProvidersDispatchType,
+  ProvidersDispatchType,
   ProviderType,
 } from "../ActionTypes/ProvidersActionTypes";
 
@@ -23,7 +23,7 @@ const initialState: defaultState = {
 
 const ProvidersReducers = (
   state: defaultState = initialState,
-  action: IProvidersDispatchType
+  action: ProvidersDispatchType
 ) => {
   switch (action.type) {
     case EProviders.ADD_LOADING:

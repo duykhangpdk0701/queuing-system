@@ -129,7 +129,7 @@ export interface IDeviceAddSuccess {
   payload: DeviceType;
 }
 
-export type IDevicesDispatchType =
+export type DevicesDispatchType =
   | IDevicesGetLoading
   | IDevicesGetError
   | IDevicesGetSuccess

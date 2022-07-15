@@ -13,17 +13,18 @@ import { db } from "../../Config/firebase";
 import {
   DeviceAddType,
   DeviceFilterType,
-  IDevicesDispatchType,
+  DevicesDispatchType,
   DeviceType,
   DeviceUpdateType,
   EDevices,
 } from "../ActionTypes/DevicesActionTypes";
 import { ServiceType } from "../ActionTypes/ServicesActionTypes";
 import Store from "../Store";
+import { historyAddAction } from "./HistoryActions";
 
 export const deviceAddAction =
   (values: DeviceAddType) =>
-  async (dispatch: Dispatch<IDevicesDispatchType>) => {
+  async (dispatch: Dispatch<DevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.ADD_LOADING,
@@ -75,6 +76,8 @@ export const deviceAddAction =
       const deviceRef = doc(db, "devices", newDevice.id);
       const deviceSnap = await getDoc(deviceRef);
 
+      await historyAddAction("Thêm thiết bị với mã", "devices", deviceRef.id);
+
       dispatch({
         type: EDevices.ADD_SUCCESS,
         payload: { id: deviceSnap.id, ...deviceSnap.data() } as DeviceType,
@@ -88,7 +91,7 @@ export const deviceAddAction =
   };
 
 export const deviceGetAction =
-  () => async (dispatch: Dispatch<IDevicesDispatchType>) => {
+  () => async (dispatch: Dispatch<DevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.GET_LOADING,
@@ -137,7 +140,7 @@ export const deviceGetAction =
 
 export const deviceGetByFilterAction =
   (filter: DeviceFilterType) =>
-  async (dispatch: Dispatch<IDevicesDispatchType>) => {
+  async (dispatch: Dispatch<DevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.GET_BY_FILTER_LOADING,
@@ -169,7 +172,7 @@ export const deviceGetByFilterAction =
   };
 
 export const deviceGetByIdAction =
-  (id: string) => async (dispatch: Dispatch<IDevicesDispatchType>) => {
+  (id: string) => async (dispatch: Dispatch<DevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.GET_BY_ID_LOADING,
@@ -209,7 +212,7 @@ export const deviceGetByIdAction =
 
 export const deviceUpdateByIdAction =
   (values: DeviceUpdateType) =>
-  async (dispatch: Dispatch<IDevicesDispatchType>) => {
+  async (dispatch: Dispatch<DevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.UPDATE_BY_ID_LOADING,
@@ -244,6 +247,12 @@ export const deviceUpdateByIdAction =
 
       const update = await getDoc(deviceRef);
       const updateData = { ...update.data(), id: update.id } as DeviceType;
+
+      await historyAddAction(
+        "Cập nhật thông tin thiết bị",
+        "devices",
+        deviceRef.id
+      );
 
       dispatch({
         type: EDevices.UPDATE_BY_ID_SUCCESS,

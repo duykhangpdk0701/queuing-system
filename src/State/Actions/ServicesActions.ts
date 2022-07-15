@@ -6,6 +6,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import moment from "moment";
 import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import {
@@ -17,6 +18,7 @@ import {
   ServiceUpdateType,
 } from "../ActionTypes/ServicesActionTypes";
 import Store from "../Store";
+import { historyAddAction } from "./HistoryActions";
 
 export const serviceGetAction =
   () => async (dispatch: Dispatch<ServiceDispatchType>) => {
@@ -114,6 +116,8 @@ export const serviceAddAction =
       const serviceRef = doc(db, "services", newService.id);
       const serviceSnap = await getDoc(serviceRef);
 
+      await historyAddAction("Thêm dịch vụ với mã", "services", serviceRef.id);
+
       dispatch({
         type: EServices.ADD_SUCCESS,
         payload: { id: serviceSnap.id, ...serviceSnap.data() } as ServiceType,
@@ -172,6 +176,11 @@ export const serviceUpdateByIdAction =
 
       const update = await getDoc(serviceRef);
       const updateData = { ...update.data(), id: update.id } as ServiceType;
+      await historyAddAction(
+        "Cập nhật thông tin dịch vụ",
+        "services",
+        serviceRef.id
+      );
 
       dispatch({
         type: EServices.UPDATE_BY_ID_SUCCESS,

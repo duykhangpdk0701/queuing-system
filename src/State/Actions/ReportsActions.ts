@@ -4,14 +4,14 @@ import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import {
   EReports,
-  IReportDispatchType,
+  ReportDispatchType,
   ReportFilterType,
   ReportsType,
 } from "../ActionTypes/ReportsActionTypes";
 import Store from "../Store";
 
 export const reportsGetAction =
-  () => async (dispatch: Dispatch<IReportDispatchType>) => {
+  () => async (dispatch: Dispatch<ReportDispatchType>) => {
     try {
       dispatch({
         type: EReports.GET_LOADING,
@@ -55,9 +55,9 @@ export const reportsGetAction =
   };
 
 export const reportsGetByFilterAction =
-  (values: ReportFilterType) =>
-  async (dispatch: Dispatch<IReportDispatchType>) => {
-    if (values.dateRange === null) return;
+  (filter: ReportFilterType) =>
+  async (dispatch: Dispatch<ReportDispatchType>) => {
+    if (filter.dateRange === null) return;
 
     try {
       dispatch({
@@ -68,17 +68,17 @@ export const reportsGetByFilterAction =
 
       let newReports: ReportsType[] = reports.rootData.filter((value) => {
         const dateProvider = moment(value.dateProvider.toDate());
-        if (values.dateRange) {
+        if (filter.dateRange) {
           if (
-            values.dateRange[0] &&
-            !moment(values.dateRange[0]).isSameOrBefore(dateProvider, "days")
+            filter.dateRange[0] &&
+            !moment(filter.dateRange[0]).isSameOrBefore(dateProvider, "days")
           ) {
             return false;
           }
 
           if (
-            values.dateRange[1] &&
-            !moment(values.dateRange[1]).isSameOrAfter(dateProvider, "days")
+            filter.dateRange[1] &&
+            !moment(filter.dateRange[1]).isSameOrAfter(dateProvider, "days")
           ) {
             return false;
           }

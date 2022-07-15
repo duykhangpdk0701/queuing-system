@@ -12,7 +12,7 @@ import { Dispatch } from "react";
 import {
   EUser,
   UserAddType,
-  IUserDispatchType,
+  UserDispatchType,
   UserFilterType,
   UserType,
   UserUpdateType,
@@ -20,9 +20,10 @@ import {
 import { db } from "../../Config/firebase";
 import { RoleType } from "../ActionTypes/RolesActionType";
 import Store from "../Store";
+import { historyAddAction } from "./HistoryActions";
 
 export const userGetAction =
-  () => async (dispatch: Dispatch<IUserDispatchType>) => {
+  () => async (dispatch: Dispatch<UserDispatchType>) => {
     try {
       dispatch({
         type: EUser.GET_LOADING,
@@ -63,7 +64,7 @@ export const userGetAction =
   };
 
 export const userGetByFilterAction =
-  (filter: UserFilterType) => async (dispatch: Dispatch<IUserDispatchType>) => {
+  (filter: UserFilterType) => async (dispatch: Dispatch<UserDispatchType>) => {
     try {
       dispatch({
         type: EUser.GET_BY_FILTER_LOADING,
@@ -90,7 +91,7 @@ export const userGetByFilterAction =
   };
 
 export const userAddAction =
-  (values: UserAddType) => async (dispatch: Dispatch<IUserDispatchType>) => {
+  (values: UserAddType) => async (dispatch: Dispatch<UserDispatchType>) => {
     try {
       dispatch({
         type: EUser.ADD_LOADING,
@@ -125,7 +126,7 @@ export const userAddAction =
         ...userData,
         role: { ...(role.data() as RoleType), id: role.id },
       };
-
+      await historyAddAction("Thêm tài khoản", "users", userRef.id);
       dispatch({
         type: EUser.ADD_SUCCESS,
         payload: { ...newUserData, id: userSnap.id } as UserType,
@@ -139,7 +140,7 @@ export const userAddAction =
   };
 
 export const userGetByIdAction =
-  (id: string) => async (dispatch: Dispatch<IUserDispatchType>) => {
+  (id: string) => async (dispatch: Dispatch<UserDispatchType>) => {
     try {
       dispatch({
         type: EUser.GET_BY_ID_LOADING,
@@ -168,7 +169,7 @@ export const userGetByIdAction =
 
 export const userUpdateByIdAction =
   (values: UserUpdateType, id: string) =>
-  async (dispatch: Dispatch<IUserDispatchType>) => {
+  async (dispatch: Dispatch<UserDispatchType>) => {
     try {
       dispatch({
         type: EUser.UPDATE_BY_ID_LOADING,
@@ -186,6 +187,13 @@ export const userUpdateByIdAction =
         ...userData,
         role: { ...(role.data() as RoleType), id: role.id },
       };
+
+      await historyAddAction(
+        "Cập nhật thông tin tài khoản",
+        "users",
+        userUpdateRef.id
+      );
+
       dispatch({
         type: EUser.UPDATE_BY_ID_SUCCESS,
         payload: newUserData,

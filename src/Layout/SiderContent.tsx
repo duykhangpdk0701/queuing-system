@@ -1,6 +1,6 @@
 import { Button, Image, Menu, MenuProps } from "antd";
 import Icon from "@ant-design/icons";
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "./SiderContent.module.scss";
 import logo from "../Assets/logo.svg";
 import { ReactComponent as layerSvg } from "../Assets/layer-group.svg";
@@ -113,9 +113,14 @@ const SiderContent = () => {
     navigate("/auth");
   };
 
-  // useEffect(() => {
-  //   console.log(location);
-  // }, [location]);
+  const selectedKey = useMemo(() => {
+    const key = location.pathname.split("/");
+    if (key[1] === "setting") {
+      return ["/setting/" + key[2]];
+    }
+
+    return ["/" + key[1]];
+  }, [location]);
 
   return (
     <div className={styles.siderWrapper}>
@@ -131,7 +136,7 @@ const SiderContent = () => {
             />
           </Link>
         </div>
-        <Menu selectedKeys={[location.pathname]} items={items} />
+        <Menu selectedKeys={selectedKey} items={items} />
       </div>
 
       <Button

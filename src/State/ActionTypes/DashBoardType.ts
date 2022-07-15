@@ -38,7 +38,7 @@ export interface IDashboardGetSuccess {
   payload: DashBoardType;
 }
 
-export type IDashBoardDispatchType =
+export type DashBoardDispatchType =
   | IDashboardGetLoading
   | IDashboardGetError
   | IDashboardGetSuccess;

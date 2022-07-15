@@ -56,7 +56,7 @@ export interface IReportGetWithFilterSuccess {
   payload: ReportsType[];
 }
 
-export type IReportDispatchType =
+export type ReportDispatchType =
   | IReportGetLoading
   | IReportGetError
   | IReportGetSuccess

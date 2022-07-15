@@ -1,6 +1,6 @@
 import {
   EUser,
-  IUserDispatchType,
+  UserDispatchType,
   UserType,
 } from "../ActionTypes/UsersActionTypes";
 
@@ -19,7 +19,7 @@ const initialState: defaultState = {
 
 const UsersReducer = (
   state: defaultState = initialState,
-  action: IUserDispatchType
+  action: UserDispatchType
 ) => {
   switch (action.type) {
     case EUser.GET_LOADING:

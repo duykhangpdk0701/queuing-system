@@ -132,7 +132,7 @@ export interface IUserGetByFilterSuccess {
   payload: UserType[];
 }
 
-export type IUserDispatchType =
+export type UserDispatchType =
   | IUserAddLoading
   | IUserAddError
   | IUserAddSuccess

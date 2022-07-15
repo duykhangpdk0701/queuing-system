@@ -1,5 +1,5 @@
 import {
-  IDashBoardDispatchType,
+  DashBoardDispatchType,
   DashBoardType,
   EDashBoards,
 } from "../ActionTypes/DashBoardType";
@@ -34,7 +34,7 @@ const initialState: defaultState = {
 
 const DashboardReducer = (
   state: defaultState = initialState,
-  action: IDashBoardDispatchType
+  action: DashBoardDispatchType
 ) => {
   switch (action.type) {
     case EDashBoards.GET_LOADING:

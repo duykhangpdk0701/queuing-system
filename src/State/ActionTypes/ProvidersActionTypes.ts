@@ -160,7 +160,7 @@ export interface IProvidersGetByServiceIdWithFilterSuccess {
   subPayload: ProviderType[];
 }
 
-export type IProvidersDispatchType =
+export type ProvidersDispatchType =
   | IProvidersGetLoading
   | IProvidersGetError
   | IProvidersGetSuccess

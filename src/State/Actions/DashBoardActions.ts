@@ -2,7 +2,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import {
-  IDashBoardDispatchType,
+  DashBoardDispatchType,
   DashBoardType,
   EDashBoards,
 } from "../ActionTypes/DashBoardType";
@@ -11,7 +11,7 @@ import { ProviderType } from "../ActionTypes/ProvidersActionTypes";
 import { ServiceType } from "../ActionTypes/ServicesActionTypes";
 
 export const dashboardGetAction =
-  () => async (dispatch: Dispatch<IDashBoardDispatchType>) => {
+  () => async (dispatch: Dispatch<DashBoardDispatchType>) => {
     try {
       dispatch({ type: EDashBoards.GET_LOADING });
       let data: DashBoardType = {

@@ -17,14 +17,15 @@ import {
   EProviders,
   ProviderFilterGetServiceIDType,
   ProviderFilterType,
-  IProvidersDispatchType,
+  ProvidersDispatchType,
   ProviderType,
 } from "../ActionTypes/ProvidersActionTypes";
 import { ServiceType } from "../ActionTypes/ServicesActionTypes";
 import Store from "../Store";
+import { historyAddAction } from "./HistoryActions";
 
 export const providerGetAction =
-  () => async (dispatch: Dispatch<IProvidersDispatchType>) => {
+  () => async (dispatch: Dispatch<ProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.GET_LOADING,
@@ -71,7 +72,7 @@ export const providerGetAction =
   };
 
 export const providerGetForNotificationAction =
-  () => async (dispatch: Dispatch<IProvidersDispatchType>) => {
+  () => async (dispatch: Dispatch<ProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.GET_NOTIFICATION_LOADING,
@@ -116,7 +117,7 @@ export const providerGetForNotificationAction =
 
 export const providerGetByFilterAction =
   (filter: ProviderFilterType) =>
-  async (dispatch: Dispatch<IProvidersDispatchType>) => {
+  async (dispatch: Dispatch<ProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.GET_BY_FILTER_LOADING,
@@ -176,7 +177,7 @@ export const providerGetByFilterAction =
   };
 
 export const providerGetByServiceIdAction =
-  (serviceId: string) => async (dispatch: Dispatch<IProvidersDispatchType>) => {
+  (serviceId: string) => async (dispatch: Dispatch<ProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.GET_BY_SERVICE_ID_LOADING,
@@ -225,7 +226,7 @@ export const providerGetByServiceIdAction =
 
 export const providerGetByServiceIdWithFilterAction =
   (filter: ProviderFilterGetServiceIDType) =>
-  async (dispatch: Dispatch<IProvidersDispatchType>) => {
+  async (dispatch: Dispatch<ProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.GET_BY_SERVICE_ID_WITH_FILTER_LOADING,
@@ -276,7 +277,7 @@ export const providerGetByServiceIdWithFilterAction =
   };
 
 export const providerGetByIdAction =
-  (id: string) => async (dispatch: Dispatch<IProvidersDispatchType>) => {
+  (id: string) => async (dispatch: Dispatch<ProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.GET_BY_ID_LOADING,
@@ -309,7 +310,7 @@ export const providerGetByIdAction =
   };
 
 export const providerAddAction =
-  (service: string) => async (dispatch: Dispatch<IProvidersDispatchType>) => {
+  (service: string) => async (dispatch: Dispatch<ProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.ADD_LOADING,
@@ -359,6 +360,7 @@ export const providerAddAction =
         },
       };
 
+      await historyAddAction("Cấp số với mã", "providers", newProviderRef.id);
       dispatch({
         type: EProviders.ADD_SUCCESS,
         payload: data,

@@ -13,16 +13,17 @@ import { db } from "../../Config/firebase";
 import {
   DeviceAddType,
   DeviceFilterType,
-  DevicesDispatchType,
+  IDevicesDispatchType,
   DeviceType,
   DeviceUpdateType,
   EDevices,
 } from "../ActionTypes/DevicesActionTypes";
 import { ServiceType } from "../ActionTypes/ServicesActionTypes";
+import Store from "../Store";
 
 export const deviceAddAction =
   (values: DeviceAddType) =>
-  async (dispatch: Dispatch<DevicesDispatchType>) => {
+  async (dispatch: Dispatch<IDevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.ADD_LOADING,
@@ -87,7 +88,7 @@ export const deviceAddAction =
   };
 
 export const deviceGetAction =
-  () => async (dispatch: Dispatch<DevicesDispatchType>) => {
+  () => async (dispatch: Dispatch<IDevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.GET_LOADING,
@@ -135,65 +136,29 @@ export const deviceGetAction =
   };
 
 export const deviceGetByFilterAction =
-  (values: DeviceFilterType) =>
-  async (dispatch: Dispatch<DevicesDispatchType>) => {
+  (filter: DeviceFilterType) =>
+  async (dispatch: Dispatch<IDevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.GET_BY_FILTER_LOADING,
       });
-      const devices: DeviceType[] = [];
-      const queryDevices = await getDocs(collection(db, "devices"));
-      queryDevices.forEach(async (value) => {
-        const temp = value.data() as DeviceType;
 
-        devices.push({
-          ...temp,
-          id: value.id,
-        });
-      });
-
-      let newDevice: DeviceType[] = [];
-
-      for (const index in devices) {
-        const deviceType = await getDoc(devices[index].deviceType);
-        let services = [];
-        for (const key in devices[index].services) {
-          const service = await getDoc(devices[index].services[key]);
-          services.push(service.data());
-        }
-
-        newDevice.push({
-          ...devices[index],
-          deviceType: deviceType.data(),
-          services,
-        });
-      }
-
-      newDevice = newDevice.filter((value) => {
-        if (values.isActive !== null && value.isActive !== values.isActive) {
+      const { devices } = Store.getState();
+      const filterDevices: DeviceType[] = devices.rootData.filter((value) => {
+        if (filter.isActive !== null && value.isActive !== filter.isActive) {
           return false;
         }
 
-        if (values.isConnect !== null && value.isConnect !== values.isConnect) {
+        if (filter.isConnect !== null && value.isConnect !== filter.isConnect) {
           return false;
         }
 
-        // if (
-        //   values.search !== null &&
-        //   values.search !== undefined &&
-        //   (!new RegExp(`/${values.search}/g`).test(value.id) ||
-        //     !new RegExp(`/${values.search}/g`).test(value.name))
-        // ) {
-        //   return false;
-        // }
         return true;
       });
 
-      newDevice.reverse();
-
       dispatch({
         type: EDevices.GET_BY_FILTER_SUCCESS,
-        payload: newDevice,
+        payload: filterDevices,
       });
     } catch (error) {
       dispatch({
@@ -204,7 +169,7 @@ export const deviceGetByFilterAction =
   };
 
 export const deviceGetByIdAction =
-  (id: string) => async (dispatch: Dispatch<DevicesDispatchType>) => {
+  (id: string) => async (dispatch: Dispatch<IDevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.GET_BY_ID_LOADING,
@@ -244,7 +209,7 @@ export const deviceGetByIdAction =
 
 export const deviceUpdateByIdAction =
   (values: DeviceUpdateType) =>
-  async (dispatch: Dispatch<DevicesDispatchType>) => {
+  async (dispatch: Dispatch<IDevicesDispatchType>) => {
     try {
       dispatch({
         type: EDevices.UPDATE_BY_ID_LOADING,

@@ -3,12 +3,12 @@ import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import {
   ESourceProvider,
-  SourceProviderDispatchType,
+  ISourceProviderDispatchType,
   SourceProviderType,
 } from "../ActionTypes/SourceProvidesActionTypes";
 
 export const sourceProviderGetAction =
-  () => async (dispatch: Dispatch<SourceProviderDispatchType>) => {
+  () => async (dispatch: Dispatch<ISourceProviderDispatchType>) => {
     try {
       dispatch({
         type: ESourceProvider.GET_LOADING,

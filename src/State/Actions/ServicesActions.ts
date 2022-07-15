@@ -16,6 +16,7 @@ import {
   ServiceType,
   ServiceUpdateType,
 } from "../ActionTypes/ServicesActionTypes";
+import Store from "../Store";
 
 export const serviceGetAction =
   () => async (dispatch: Dispatch<ServiceDispatchType>) => {
@@ -50,37 +51,26 @@ export const serviceGetAction =
   };
 
 export const serviceGetByFilterAction =
-  (values: ServiceFilterType) =>
+  (filter: ServiceFilterType) =>
   async (dispatch: Dispatch<ServiceDispatchType>) => {
     try {
       dispatch({
         type: EServices.GET_BY_FILTER_LOADING,
       });
 
-      const services: ServiceType[] = [];
-      const queryServices = await getDocs(collection(db, "services"));
-      queryServices.forEach(async (values) => {
-        const temp = values.data() as ServiceType;
-        const serviceId = values.id;
-
-        services.push({
-          ...temp,
-          id: serviceId,
-        });
-      });
-
-      const filterService = services.filter((value) => {
-        if (values.isActive !== null && value.isActive !== values.isActive) {
-          return false;
+      const { services } = Store.getState();
+      const filterServices: ServiceType[] = services.rootData.filter(
+        (value) => {
+          if (filter.isActive !== null && value.isActive !== filter.isActive) {
+            return false;
+          }
+          return true;
         }
+      );
 
-        return true;
-      });
-
-      services.reverse();
       dispatch({
         type: EServices.GET_BY_FILTER_SUCCESS,
-        payload: filterService,
+        payload: filterServices,
       });
     } catch (error) {
       dispatch({

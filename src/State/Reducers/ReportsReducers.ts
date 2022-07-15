@@ -8,11 +8,13 @@ export interface defaultState {
   loading: boolean;
   error?: Error;
   current: ReportsType[];
+  rootData: ReportsType[];
 }
 
 const initialState: defaultState = {
   loading: false,
   current: [],
+  rootData: [],
 };
 
 const ReportsReducers = (
@@ -24,18 +26,21 @@ const ReportsReducers = (
       return {
         loading: true,
         current: state.current,
+        rootData: state.current,
       };
 
     case EReports.GET_SUCCESS:
       return {
         loading: false,
         current: action.payload,
+        rootData: action.payload,
       };
 
     case EReports.GET_ERROR:
       return {
         loading: false,
         current: state.current,
+        rootData: state.rootData,
         error: action.error,
       };
 
@@ -43,18 +48,21 @@ const ReportsReducers = (
       return {
         loading: true,
         current: state.current,
+        rootData: state.rootData,
       };
 
     case EReports.GET_WITH_FILTER_SUCCESS:
       return {
         loading: false,
         current: action.payload,
+        rootData: state.rootData,
       };
 
     case EReports.GET_WITH_FILTER_ERROR:
       return {
         loading: false,
         current: state.current,
+        rootData: state.rootData,
         error: action.error,
       };
 
@@ -62,6 +70,7 @@ const ReportsReducers = (
       return {
         loading: false,
         current: state.current,
+        rootData: state.rootData,
       };
   }
 };

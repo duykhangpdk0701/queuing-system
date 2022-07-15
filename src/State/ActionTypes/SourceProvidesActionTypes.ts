@@ -23,7 +23,7 @@ export interface ISourceProviderGetError {
   error: Error;
 }
 
-export type SourceProviderDispatchType =
+export type ISourceProviderDispatchType =
   | ISourceProviderGetLoading
   | ISourceProviderGetSuccess
   | ISourceProviderGetError;

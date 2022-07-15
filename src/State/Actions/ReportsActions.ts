@@ -8,6 +8,7 @@ import {
   ReportFilterType,
   ReportsType,
 } from "../ActionTypes/ReportsActionTypes";
+import Store from "../Store";
 
 export const reportsGetAction =
   () => async (dispatch: Dispatch<IReportDispatchType>) => {
@@ -63,44 +64,24 @@ export const reportsGetByFilterAction =
         type: EReports.GET_WITH_FILTER_LOADING,
       });
 
-      const reports: ReportsType[] = [];
-      const queryReports = await getDocs(collection(db, "providers"));
-      queryReports.forEach(async (values) => {
-        const temp = values.data() as ReportsType;
-        const reportId = values.id;
+      const { reports } = Store.getState();
 
-        reports.push({
-          ...temp,
-          id: reportId,
-        });
-      });
-
-      let newReports: ReportsType[] = [];
-      for (const values of reports) {
-        const service = await getDoc(values.services);
-        const sourceProvider = await getDoc(values.sourceProvider);
-        newReports.push({
-          ...values,
-          services: service.data(),
-          sourceProvider: sourceProvider.data(),
-        });
-      }
-
-      newReports = newReports.filter((value) => {
+      let newReports: ReportsType[] = reports.rootData.filter((value) => {
         const dateProvider = moment(value.dateProvider.toDate());
+        if (values.dateRange) {
+          if (
+            values.dateRange[0] &&
+            !moment(values.dateRange[0]).isSameOrBefore(dateProvider, "days")
+          ) {
+            return false;
+          }
 
-        if (
-          values.dateRange[0] &&
-          !moment(values.dateRange[0]).isSameOrBefore(dateProvider, "days")
-        ) {
-          return false;
-        }
-
-        if (
-          values.dateRange[1] &&
-          !moment(values.dateRange[1]).isSameOrAfter(dateProvider, "days")
-        ) {
-          return false;
+          if (
+            values.dateRange[1] &&
+            !moment(values.dateRange[1]).isSameOrAfter(dateProvider, "days")
+          ) {
+            return false;
+          }
         }
         return true;
       });
@@ -109,7 +90,7 @@ export const reportsGetByFilterAction =
 
       dispatch({
         type: EReports.GET_WITH_FILTER_SUCCESS,
-        payload: newReports,
+        payload: newReports.sort((a, b) => a.ordinalNumber - b.ordinalNumber),
       });
     } catch (error) {
       dispatch({

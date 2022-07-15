@@ -33,6 +33,7 @@ const DatePickerRange = forwardRef((props: IDatePickerRange, ref) => {
   }, [props.value]);
 
   useEffect(() => {
+    if (value === null || value === undefined) return;
     props.onChange?.(value);
     // eslint-disable-next-line
   }, [value]);

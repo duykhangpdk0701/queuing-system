@@ -12,15 +12,17 @@ import { Dispatch } from "react";
 import {
   EUser,
   UserAddType,
-  UserDispatchType,
+  IUserDispatchType,
+  UserFilterType,
   UserType,
   UserUpdateType,
 } from "../ActionTypes/UsersActionTypes";
 import { db } from "../../Config/firebase";
 import { RoleType } from "../ActionTypes/RolesActionType";
+import Store from "../Store";
 
 export const userGetAction =
-  () => async (dispatch: Dispatch<UserDispatchType>) => {
+  () => async (dispatch: Dispatch<IUserDispatchType>) => {
     try {
       dispatch({
         type: EUser.GET_LOADING,
@@ -44,7 +46,7 @@ export const userGetAction =
       for (const value of users) {
         const role = await getDoc(value.role);
         const roleData = (await role.data()) as RoleType;
-        newUsers.push({ ...value, role: roleData });
+        newUsers.push({ ...value, role: { ...roleData, id: role.id } });
       }
 
       newUsers.reverse();
@@ -60,8 +62,35 @@ export const userGetAction =
     }
   };
 
+export const userGetByFilterAction =
+  (filter: UserFilterType) => async (dispatch: Dispatch<IUserDispatchType>) => {
+    try {
+      dispatch({
+        type: EUser.GET_BY_FILTER_LOADING,
+      });
+
+      const { users } = Store.getState();
+      const filterUsers: UserType[] = users.rootData.filter((value) => {
+        if (filter.role !== null && value.role.id !== filter.role) {
+          return false;
+        }
+        return true;
+      });
+
+      dispatch({
+        type: EUser.GET_BY_FILTER_SUCCESS,
+        payload: filterUsers,
+      });
+    } catch (error) {
+      dispatch({
+        type: EUser.GET_BY_FILTER_ERROR,
+        error: error as Error,
+      });
+    }
+  };
+
 export const userAddAction =
-  (values: UserAddType) => async (dispatch: Dispatch<UserDispatchType>) => {
+  (values: UserAddType) => async (dispatch: Dispatch<IUserDispatchType>) => {
     try {
       dispatch({
         type: EUser.ADD_LOADING,
@@ -110,7 +139,7 @@ export const userAddAction =
   };
 
 export const userGetByIdAction =
-  (id: string) => async (dispatch: Dispatch<UserDispatchType>) => {
+  (id: string) => async (dispatch: Dispatch<IUserDispatchType>) => {
     try {
       dispatch({
         type: EUser.GET_BY_ID_LOADING,
@@ -139,7 +168,7 @@ export const userGetByIdAction =
 
 export const userUpdateByIdAction =
   (values: UserUpdateType, id: string) =>
-  async (dispatch: Dispatch<UserDispatchType>) => {
+  async (dispatch: Dispatch<IUserDispatchType>) => {
     try {
       dispatch({
         type: EUser.UPDATE_BY_ID_LOADING,

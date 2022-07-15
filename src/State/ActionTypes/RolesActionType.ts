@@ -22,38 +22,38 @@ export type RoleAddType = {
   authority: string[];
 };
 
-export interface RoleAddLoading {
+export interface IRoleAddLoading {
   type: typeof ERole.ADD_LOADING;
 }
 
-export interface RoleAddError {
+export interface IRoleAddError {
   type: typeof ERole.ADD_ERROR;
   error: Error;
 }
 
-export interface RoleAddSuccess {
+export interface IRoleAddSuccess {
   type: typeof ERole.ADD_SUCCESS;
   payload: RoleType;
 }
 
-export interface RoleGetLoading {
+export interface IRoleGetLoading {
   type: typeof ERole.GET_LOADING;
 }
 
-export interface RoleGetError {
+export interface IRoleGetError {
   type: typeof ERole.GET_ERROR;
   error: Error;
 }
 
-export interface RoleGetSuccess {
+export interface IRoleGetSuccess {
   type: typeof ERole.GET_SUCCESS;
   payload: RoleType[];
 }
 
 export type RoleDispatchType =
-  | RoleAddLoading
-  | RoleAddError
-  | RoleAddSuccess
-  | RoleGetLoading
-  | RoleGetError
-  | RoleGetSuccess;
+  | IRoleAddLoading
+  | IRoleAddError
+  | IRoleAddSuccess
+  | IRoleGetLoading
+  | IRoleGetError
+  | IRoleGetSuccess;

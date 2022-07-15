@@ -1,8 +1,11 @@
 import { CaretDownOutlined } from "@ant-design/icons";
-import { Col, Form, Row, Select, Typography } from "antd";
+import { Col, Form, FormInstance, Row, Select, Typography } from "antd";
 import React, { FC } from "react";
 import SearchInput from "../../../Components/SearchInput";
-import { UserType } from "../../../State/ActionTypes/UsersActionTypes";
+import {
+  UserFilterType,
+  UserType,
+} from "../../../State/ActionTypes/UsersActionTypes";
 import styles from "./ManageAccountLayout.module.scss";
 import ManageAccountTable from "./ManageAccountTable";
 import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
@@ -15,6 +18,8 @@ interface IManageAccountLayout {
   data: UserType[];
   rolesLoading: boolean;
   rolesData: RoleType[];
+  onFinish: (values: UserFilterType) => void;
+  form: FormInstance;
 }
 
 const { Option } = Select;
@@ -27,7 +32,12 @@ const ManageAccountLayout: FC<IManageAccountLayout> = (props) => {
       <Typography.Title level={2} className={styles.title}>
         Danh sách tài khoản
       </Typography.Title>
-      <Form layout="vertical" name="filter-user">
+      <Form
+        layout="vertical"
+        name="filter-user"
+        onFinish={props.onFinish}
+        form={props.form}
+      >
         <Row justify="space-between" className={styles.inputContainer}>
           <Col flex="300px">
             <Form.Item
@@ -36,6 +46,7 @@ const ManageAccountLayout: FC<IManageAccountLayout> = (props) => {
               name="role"
             >
               <Select
+                onChange={() => props.form.submit()}
                 size="large"
                 suffixIcon={
                   <CaretDownOutlined
@@ -55,6 +66,7 @@ const ManageAccountLayout: FC<IManageAccountLayout> = (props) => {
           <Col flex="300px">
             <Form.Item
               label={<Typography.Text strong>Từ khóa</Typography.Text>}
+              name="search"
             >
               <SearchInput size="large" placeholder="Nhập từ khóa" />
             </Form.Item>

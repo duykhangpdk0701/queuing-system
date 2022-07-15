@@ -1,5 +1,5 @@
 import {
-  DevicesDispatchType,
+  IDevicesDispatchType,
   DeviceType,
   EDevices,
 } from "../ActionTypes/DevicesActionTypes";
@@ -36,7 +36,7 @@ const initialState: defaultState = {
 
 const DeviceReducer = (
   state: defaultState = initialState,
-  action: DevicesDispatchType
+  action: IDevicesDispatchType
 ) => {
   switch (action.type) {
     case EDevices.GET_BY_ID_LOADING:

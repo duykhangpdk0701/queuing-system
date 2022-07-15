@@ -1,7 +1,6 @@
-import { error } from "console";
 import {
   ESourceProvider,
-  SourceProviderDispatchType,
+  ISourceProviderDispatchType,
   SourceProviderType,
 } from "../ActionTypes/SourceProvidesActionTypes";
 
@@ -18,7 +17,7 @@ const initialState: IDefaultState = {
 
 const SourceProviderReducer = (
   state: IDefaultState = initialState,
-  action: SourceProviderDispatchType
+  action: ISourceProviderDispatchType
 ) => {
   switch (action.type) {
     case ESourceProvider.GET_LOADING:

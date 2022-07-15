@@ -60,44 +60,44 @@ export type ServiceUpdateType = {
   increase?: { from?: number; to?: number };
 };
 
-export interface ServicesGetLoading {
+export interface IServicesGetLoading {
   type: typeof EServices.GET_LOADING;
 }
 
-export interface ServicesGetError {
+export interface IServicesGetError {
   type: typeof EServices.GET_ERROR;
   error: Error;
 }
 
-export interface ServicesGetSuccess {
+export interface IServicesGetSuccess {
   type: typeof EServices.GET_SUCCESS;
   payload: ServiceType[];
 }
 
-export interface ServiceGetByIdLoading {
+export interface IServiceGetByIdLoading {
   type: typeof EServices.GET_BY_ID_LOADING;
 }
 
-export interface ServiceGetByIdError {
+export interface IServiceGetByIdError {
   type: typeof EServices.GET_BY_ID_ERROR;
   error: Error;
 }
 
-export interface ServiceGetByIdSuccess {
+export interface IServiceGetByIdSuccess {
   type: typeof EServices.GET_BY_ID_SUCCESS;
   payload: ServiceType;
 }
 
-export interface ServiceGetByFilterLoading {
+export interface IServiceGetByFilterLoading {
   type: typeof EServices.GET_BY_FILTER_LOADING;
 }
 
-export interface ServiceGetByFilterError {
+export interface IServiceGetByFilterError {
   type: typeof EServices.GET_BY_FILTER_ERROR;
   error: Error;
 }
 
-export interface ServiceGetByFilterSuccess {
+export interface IServiceGetByFilterSuccess {
   type: typeof EServices.GET_BY_FILTER_SUCCESS;
   payload: ServiceType[];
 }
@@ -131,18 +131,18 @@ export interface ServiceAddSuccess {
 }
 
 export type ServiceDispatchType =
-  | ServicesGetLoading
-  | ServicesGetError
-  | ServicesGetSuccess
+  | IServicesGetLoading
+  | IServicesGetError
+  | IServicesGetSuccess
   | ServiceAddLoading
   | ServiceAddError
   | ServiceAddSuccess
-  | ServiceGetByIdLoading
-  | ServiceGetByIdError
-  | ServiceGetByIdSuccess
+  | IServiceGetByIdLoading
+  | IServiceGetByIdError
+  | IServiceGetByIdSuccess
   | ServiceUpdateByIdLoading
   | ServiceUpdateByIdError
   | ServiceUpdateByIdSuccess
-  | ServiceGetByFilterLoading
-  | ServiceGetByFilterError
-  | ServiceGetByFilterSuccess;
+  | IServiceGetByFilterLoading
+  | IServiceGetByFilterError
+  | IServiceGetByFilterSuccess;

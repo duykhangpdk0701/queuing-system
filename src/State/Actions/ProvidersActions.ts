@@ -15,16 +15,66 @@ import { db } from "../../Config/firebase";
 import { randomCustomer } from "../../Utils/randomCustomer";
 import {
   EProviders,
-  ProvidersDispatchType,
+  ProviderFilterGetServiceIDType,
+  ProviderFilterType,
+  IProvidersDispatchType,
   ProviderType,
 } from "../ActionTypes/ProvidersActionTypes";
 import { ServiceType } from "../ActionTypes/ServicesActionTypes";
+import Store from "../Store";
 
 export const providerGetAction =
-  () => async (dispatch: Dispatch<ProvidersDispatchType>) => {
+  () => async (dispatch: Dispatch<IProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.GET_LOADING,
+      });
+
+      const providers: ProviderType[] = [];
+      const queryProviders = await getDocs(
+        query(collection(db, "providers"), orderBy("ordinalNumber"))
+      );
+      queryProviders.forEach(async (values) => {
+        const temp = values.data() as ProviderType;
+        const providerId = values.id;
+
+        providers.push({
+          ...temp,
+          id: providerId,
+        });
+      });
+
+      let newProvider: ProviderType[] = [];
+      for (const values of providers) {
+        const service = await getDoc(values.services);
+        const sourceProvider = await getDoc(values.sourceProvider);
+        newProvider.push({
+          ...values,
+          services: { ...(service.data() as ServiceType), id: service.id },
+          sourceProvider: {
+            ...(sourceProvider.data() as any),
+            id: sourceProvider.id,
+          },
+        });
+      }
+
+      dispatch({
+        type: EProviders.GET_SUCCESS,
+        payload: newProvider,
+      });
+    } catch (error) {
+      dispatch({
+        type: EProviders.GET_ERROR,
+        error: error as Error,
+      });
+    }
+  };
+
+export const providerGetForNotificationAction =
+  () => async (dispatch: Dispatch<IProvidersDispatchType>) => {
+    try {
+      dispatch({
+        type: EProviders.GET_NOTIFICATION_LOADING,
       });
 
       const providers: ProviderType[] = [];
@@ -53,27 +103,86 @@ export const providerGetAction =
       }
 
       dispatch({
-        type: EProviders.GET_SUCCESS,
-        payload: newProvider,
+        type: EProviders.GET_NOTIFICATION_SUCCESS,
+        notificationPayload: newProvider,
       });
     } catch (error) {
       dispatch({
-        type: EProviders.GET_ERROR,
+        type: EProviders.GET_NOTIFICATION_ERROR,
+        error: error as Error,
+      });
+    }
+  };
+
+export const providerGetByFilterAction =
+  (filter: ProviderFilterType) =>
+  async (dispatch: Dispatch<IProvidersDispatchType>) => {
+    try {
+      dispatch({
+        type: EProviders.GET_BY_FILTER_LOADING,
+      });
+
+      const { providers } = Store.getState();
+
+      const filterProviders: ProviderType[] = providers.rootData.filter(
+        (value) => {
+          if (filter.service !== null && value.services.id !== filter.service) {
+            return false;
+          }
+
+          if (filter.status !== null && value.status !== filter.status) {
+            return false;
+          }
+
+          if (
+            filter.sourceProvider !== null &&
+            value.sourceProvider.id !== filter.sourceProvider
+          ) {
+            return false;
+          }
+          if (filter.dateRange) {
+            const dateProvider = moment(value.dateProvider.toDate());
+            if (
+              filter.dateRange[0] &&
+              !moment(filter.dateRange[0]).isSameOrBefore(dateProvider, "days")
+            ) {
+              return false;
+            }
+
+            if (
+              filter.dateRange[1] &&
+              !moment(filter.dateRange[1]).isSameOrAfter(dateProvider, "days")
+            ) {
+              return false;
+            }
+          }
+
+          return true;
+        }
+      );
+
+      dispatch({
+        type: EProviders.GET_BY_FILTER_SUCCESS,
+        payload: filterProviders.sort(
+          (a, b) => a.ordinalNumber - b.ordinalNumber
+        ),
+      });
+    } catch (error) {
+      dispatch({
+        type: EProviders.GET_BY_FILTER_ERROR,
         error: error as Error,
       });
     }
   };
 
 export const providerGetByServiceIdAction =
-  (serviceId: string) => async (dispatch: Dispatch<ProvidersDispatchType>) => {
+  (serviceId: string) => async (dispatch: Dispatch<IProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.GET_BY_SERVICE_ID_LOADING,
       });
 
       const serviceRef = doc(db, `/services/${serviceId}`);
-      const serviceData = await getDoc(serviceRef);
-      console.log(serviceData.data());
 
       const providers: ProviderType[] = [];
       const queryProviders = await getDocs(
@@ -114,8 +223,60 @@ export const providerGetByServiceIdAction =
     }
   };
 
+export const providerGetByServiceIdWithFilterAction =
+  (filter: ProviderFilterGetServiceIDType) =>
+  async (dispatch: Dispatch<IProvidersDispatchType>) => {
+    try {
+      dispatch({
+        type: EProviders.GET_BY_SERVICE_ID_WITH_FILTER_LOADING,
+      });
+
+      const { providers } = Store.getState();
+      const filterProviders: ProviderType[] = providers.rootData.filter(
+        (value) => {
+          console.log(filter.status);
+          console.log(value.status);
+          if (filter.status !== null && filter.status !== value.status) {
+            return false;
+          }
+
+          if (filter.dateRange) {
+            const dateProvider = moment(value.dateProvider.toDate());
+            if (
+              filter.dateRange[0] &&
+              !moment(filter.dateRange[0]).isSameOrBefore(dateProvider, "days")
+            ) {
+              return false;
+            }
+
+            if (
+              filter.dateRange[1] &&
+              !moment(filter.dateRange[1]).isSameOrAfter(dateProvider, "days")
+            ) {
+              return false;
+            }
+          }
+
+          return true;
+        }
+      );
+
+      dispatch({
+        type: EProviders.GET_BY_SERVICE_ID_WITH_FILTER_SUCCESS,
+        subPayload: filterProviders.sort(
+          (a, b) => a.ordinalNumber - b.ordinalNumber
+        ),
+      });
+    } catch (error) {
+      dispatch({
+        type: EProviders.GET_BY_SERVICE_ID_WITH_FILTER_ERROR,
+        error: error as Error,
+      });
+    }
+  };
+
 export const providerGetByIdAction =
-  (id: string) => async (dispatch: Dispatch<ProvidersDispatchType>) => {
+  (id: string) => async (dispatch: Dispatch<IProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.GET_BY_ID_LOADING,
@@ -148,7 +309,7 @@ export const providerGetByIdAction =
   };
 
 export const providerAddAction =
-  (service: string) => async (dispatch: Dispatch<ProvidersDispatchType>) => {
+  (service: string) => async (dispatch: Dispatch<IProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.ADD_LOADING,

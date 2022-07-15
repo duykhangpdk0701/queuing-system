@@ -8,7 +8,10 @@ import useBreadcrumbs, { BreadcrumbsRoute } from "use-react-router-breadcrumbs";
 import NotificationButton from "./NotificationButton";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../State/Store";
-import { providerGetAction } from "../State/Actions/ProvidersActions";
+import {
+  providerGetAction,
+  providerGetForNotificationAction,
+} from "../State/Actions/ProvidersActions";
 
 const { Text } = Typography;
 
@@ -72,7 +75,7 @@ const HeaderContent = () => {
 
   useEffect(() => {
     try {
-      dispatch(providerGetAction());
+      dispatch(providerGetForNotificationAction());
     } catch (error) {
       console.log(error);
     }
@@ -127,7 +130,9 @@ const HeaderContent = () => {
       </div>
 
       <div className={styles.avatarContainer}>
-        <NotificationButton providerNumberData={providerState.current} />
+        <NotificationButton
+          providerNumberData={providerState.notificationCurrent}
+        />
         <Link to="/info" className={styles.infoContainer}>
           <Avatar size={40} src={<Image src={avatar} preview={false} />} />
           <div className={styles.nameContainer}>

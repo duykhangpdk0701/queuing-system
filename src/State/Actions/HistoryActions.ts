@@ -1,4 +1,12 @@
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import moment from "moment";
 import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
@@ -18,7 +26,9 @@ export const historyGetAction =
       });
 
       const history: HistoryType[] = [];
-      const queryHistory = await getDocs(collection(db, "history"));
+      const queryHistory = await getDocs(
+        query(collection(db, "history"), orderBy("timeInteract", "desc"))
+      );
       queryHistory.forEach((value) => {
         const temp = value.data() as HistoryType;
         history.push({
@@ -78,6 +88,12 @@ export const historyGetWithFilterAction =
             !moment(filter.dateRange[1]).isSameOrAfter(timeInteracted, "days")
           ) {
             return false;
+          }
+
+          if (filter.search !== null && filter.search !== undefined) {
+            return value.user.username
+              .toLowerCase()
+              .includes(filter.search.toLowerCase());
           }
         }
         return true;

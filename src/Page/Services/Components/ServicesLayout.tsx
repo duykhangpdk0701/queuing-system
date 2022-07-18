@@ -81,7 +81,11 @@ const ServicesLayout: FC<IServicesLayout> = (props) => {
               label={<Typography.Text strong>Từ khóa</Typography.Text>}
               name="search"
             >
-              <SearchInput size="large" placeholder="Nhập từ khóa" />
+              <SearchInput
+                size="large"
+                placeholder="Nhập từ khóa"
+                onChange={() => props.form.submit()}
+              />
             </Form.Item>
           </Col>
         </Row>

@@ -3,6 +3,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  increment,
   query,
   setDoc,
   updateDoc,
@@ -75,6 +76,16 @@ export const userGetByFilterAction =
         if (filter.role !== null && value.role.id !== filter.role) {
           return false;
         }
+
+        if (filter.search !== null && filter.search !== undefined) {
+          return (
+            value.username
+              .toLowerCase()
+              .includes(filter.search.toLowerCase()) ||
+            value.name.toLowerCase().includes(filter.search.toLowerCase())
+          );
+        }
+
         return true;
       });
 
@@ -117,7 +128,7 @@ export const userAddAction =
         role: doc(db, `/roles/${values.role}`),
       });
 
-      const userRef = doc(db, "roles", newUser.id);
+      const userRef = doc(db, "users", newUser.id);
 
       const userSnap = await getDoc(userRef);
       const userData = userSnap.data() as UserType;
@@ -126,6 +137,12 @@ export const userAddAction =
         ...userData,
         role: { ...(role.data() as RoleType), id: role.id },
       };
+      const roleRef = doc(db, "roles", role.id);
+
+      await updateDoc(roleRef, {
+        amountOfUser: increment(1),
+      });
+
       await historyAddAction("Thêm tài khoản", "users", userRef.id);
       dispatch({
         type: EUser.ADD_SUCCESS,

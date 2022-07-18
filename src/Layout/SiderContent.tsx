@@ -1,11 +1,9 @@
 import { Button, Image, Menu, MenuProps } from "antd";
-import Icon from "@ant-design/icons";
+import Icon, { CommentOutlined, FileTextOutlined } from "@ant-design/icons";
 import React, { useMemo } from "react";
 import styles from "./SiderContent.module.scss";
 import logo from "../Assets/logo.svg";
 import { ReactComponent as layerSvg } from "../Assets/layer-group.svg";
-import { ReactComponent as serviceSvg } from "../Assets/service-icon.svg";
-import { ReactComponent as reportSvg } from "../Assets/report-icon.svg";
 import { ReactComponent as moreSvg } from "../Assets/more-icon.svg";
 import { ReactComponent as logoutSvg } from "../Assets/logout-icon.svg";
 import { Element4, Monitor, Setting } from "iconsax-react";
@@ -43,7 +41,7 @@ const items: MenuProps["items"] = [
       </>
     ),
     key: "/services",
-    icon: <Icon component={serviceSvg} />,
+    icon: <CommentOutlined style={{ fontSize: 20 }} />,
   },
   {
     label: (
@@ -63,7 +61,7 @@ const items: MenuProps["items"] = [
       </>
     ),
     key: "/report",
-    icon: <Icon component={reportSvg} />,
+    icon: <FileTextOutlined style={{ fontSize: 20 }} />,
   },
   {
     label: "Cài đặt Hệ thống",

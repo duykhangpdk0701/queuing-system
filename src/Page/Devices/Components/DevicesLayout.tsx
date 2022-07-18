@@ -76,7 +76,6 @@ const DevicesLayout: FC<IDevicesLayout> = (props) => {
                 <Select
                   onChange={() => props.form.submit()}
                   size="large"
-                  defaultValue={null}
                   suffixIcon={
                     <CaretDownOutlined
                       style={{ fontSize: "20px", color: "#FF7506" }}

@@ -19,6 +19,7 @@ interface IServiceDetailLayout {
   providerLoading: boolean;
   form: FormInstance;
   onFinish: (values: ProviderFilterGetServiceIDType) => void;
+  id: string | undefined;
 }
 
 const { Title } = Typography;
@@ -54,7 +55,9 @@ const ServiceDetailLayout: FC<IServiceDetailLayout> = (props) => {
                 label: "Cập nhật danh sách",
                 icon: editSvg,
                 onClick: () => {
-                  navigate("/services/add");
+                  if (props.id) {
+                    navigate(`/services/update/${props.id}`);
+                  }
                 },
               },
               {

@@ -22,6 +22,7 @@ export type HistoryType = {
 
 export type HistoryFilterType = {
   dateRange: [Moment, Moment];
+  search: string;
 };
 
 export interface IHistoryGetLoading {

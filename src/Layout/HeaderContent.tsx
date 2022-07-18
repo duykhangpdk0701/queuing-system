@@ -8,10 +8,7 @@ import useBreadcrumbs, { BreadcrumbsRoute } from "use-react-router-breadcrumbs";
 import NotificationButton from "./NotificationButton";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../State/Store";
-import {
-  providerGetAction,
-  providerGetForNotificationAction,
-} from "../State/Actions/ProvidersActions";
+import { providerGetForNotificationAction } from "../State/Actions/ProvidersActions";
 
 const { Text } = Typography;
 
@@ -20,7 +17,6 @@ const routes: BreadcrumbsRoute[] = [
   { path: "/devices/add", breadcrumb: "Thêm thiết bị" },
   { path: "/devices/:id", breadcrumb: "Chi tiết thiết bị" },
   { path: "/devices/update/:id", breadcrumb: "Cập nhật thiết bị" },
-
   {
     path: "/services",
     breadcrumb: "Danh sách dịch vụ ",
@@ -35,10 +31,9 @@ const routes: BreadcrumbsRoute[] = [
     breadcrumb: "Chi tiết ",
   },
   {
-    path: "/services",
+    path: "/services/update/:id",
     breadcrumb: "Cập nhật",
   },
-
   { path: "/provider", breadcrumb: "Danh sách cấp số", props: { root: true } },
   { path: "/provider/add", breadcrumb: "Cấp số mới" },
   { path: "/provider/:id", breadcrumb: "Chi tiết" },

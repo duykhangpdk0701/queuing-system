@@ -157,6 +157,16 @@ export const providerGetByFilterAction =
               return false;
             }
           }
+          if (filter.search !== null && filter.search !== undefined) {
+            return (
+              value.services.name
+                .toLowerCase()
+                .includes(filter.search.toLowerCase()) ||
+              value.customerName
+                .toLowerCase()
+                .includes(filter.search.toLowerCase())
+            );
+          }
 
           return true;
         }

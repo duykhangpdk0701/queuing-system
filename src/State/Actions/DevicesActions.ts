@@ -156,6 +156,13 @@ export const deviceGetByFilterAction =
           return false;
         }
 
+        if (filter.search !== null && filter.search !== undefined) {
+          return (
+            value.id.toLowerCase().includes(filter.search.toLowerCase()) ||
+            value.name.toLowerCase().includes(filter.search.toLowerCase())
+          );
+        }
+
         return true;
       });
 

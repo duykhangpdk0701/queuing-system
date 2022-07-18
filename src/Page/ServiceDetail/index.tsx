@@ -49,6 +49,7 @@ const ServiceDetail = () => {
       providerLoading={providerState.loading}
       form={form}
       onFinish={onFinish}
+      id={id}
     />
   );
 };

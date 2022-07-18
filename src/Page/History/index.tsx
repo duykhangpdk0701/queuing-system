@@ -27,6 +27,7 @@ const History = () => {
 
   const onFinish = async (values: HistoryFilterType) => {
     try {
+      console.log(values);
       await dispatch(historyGetWithFilterAction(values));
     } catch (error) {
       console.log(error);

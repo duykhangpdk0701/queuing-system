@@ -126,6 +126,8 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
         ],
       },
     };
+
+    //eslint-disable-next-line
   }, [props.chartType, props.chartData]);
 
   return (

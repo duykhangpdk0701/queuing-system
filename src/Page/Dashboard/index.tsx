@@ -15,13 +15,13 @@ const Dashboard = () => {
   const today = moment().toObject();
   const [date, setDate] = useState<DayValue>({
     day: today.date,
-    month: today.months,
+    month: today.months + 1,
     year: today.years,
   });
 
   const dispatch = useDispatch();
   const state = useSelector((state: RootStore) => state.dashboard);
-  const [chartType, setChartType] = useState("week");
+  const [chartType, setChartType] = useState("day");
 
   useEffect(() => {
     const fetchDashBoardSummary = async () => {
@@ -42,7 +42,7 @@ const Dashboard = () => {
             await dispatch(
               dashboardGetProviderChartDayAction({
                 day: date.day,
-                month: date.month + 1,
+                month: date.month,
                 year: date.year,
               })
             );
@@ -51,7 +51,7 @@ const Dashboard = () => {
             await dispatch(
               dashboardGetProviderChartWeekAction({
                 day: date.day,
-                month: date.month + 1,
+                month: date.month,
                 year: date.year,
               })
             );
@@ -59,7 +59,7 @@ const Dashboard = () => {
           case "month":
             await dispatch(
               dashboardGetProviderChartMonthAction({
-                month: date.month + 1,
+                month: date.month,
                 year: date.year,
               })
             );
@@ -69,7 +69,7 @@ const Dashboard = () => {
             await dispatch(
               dashboardGetProviderChartDayAction({
                 day: date.day,
-                month: date.month + 1,
+                month: date.month,
                 year: date.year,
               })
             );

@@ -57,7 +57,11 @@ const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
               <Col span={12}>
                 <Form.Item
                   name="id"
-                  label={<Typography.Text strong>Mã thiết bị:</Typography.Text>}
+                  label={
+                    <Typography.Text strong>
+                      Mã thiết bị: <span style={{ color: "#FF4747" }}>*</span>{" "}
+                    </Typography.Text>
+                  }
                   required={false}
                   rules={[
                     { required: true, message: "Vui lòng nhập mã thiết bị" },
@@ -70,7 +74,9 @@ const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
                 <Form.Item
                   name="deviceType"
                   label={
-                    <Typography.Text strong>Loại thiết bị:</Typography.Text>
+                    <Typography.Text strong>
+                      Loại thiết bị: <span style={{ color: "#FF4747" }}>*</span>{" "}
+                    </Typography.Text>
                   }
                   required={false}
                   rules={[
@@ -102,7 +108,9 @@ const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
                 <Form.Item
                   name="name"
                   label={
-                    <Typography.Text strong>Tên thiết bị:</Typography.Text>
+                    <Typography.Text strong>
+                      Tên thiết bị: <span style={{ color: "#FF4747" }}>*</span>{" "}
+                    </Typography.Text>
                   }
                   required={false}
                   rules={[
@@ -116,7 +124,9 @@ const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
                 <Form.Item
                   name="username"
                   label={
-                    <Typography.Text strong>Tên đăng nhập:</Typography.Text>
+                    <Typography.Text strong>
+                      Tên đăng nhập: <span style={{ color: "#FF4747" }}>*</span>{" "}
+                    </Typography.Text>
                   }
                   required={false}
                   rules={[
@@ -132,7 +142,11 @@ const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
               <Col span={12}>
                 <Form.Item
                   name="IPAddress"
-                  label={<Typography.Text strong>Địa chỉ IP:</Typography.Text>}
+                  label={
+                    <Typography.Text strong>
+                      Địa chỉ IP: <span style={{ color: "#FF4747" }}>*</span>{" "}
+                    </Typography.Text>
+                  }
                   required={false}
                   rules={[
                     { required: true, message: "Vui lòng nhập địa chỉ IP" },
@@ -144,7 +158,11 @@ const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
               <Col span={12}>
                 <Form.Item
                   name="password"
-                  label={<Typography.Text strong>Mật khẩu:</Typography.Text>}
+                  label={
+                    <Typography.Text strong>
+                      Mật khẩu: <span style={{ color: "#FF4747" }}>*</span>{" "}
+                    </Typography.Text>
+                  }
                   required={false}
                   rules={[
                     { required: true, message: "Vui lòng nhập mật khẩu" },
@@ -159,7 +177,10 @@ const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
                 <Form.Item
                   name="services"
                   label={
-                    <Typography.Text strong>Dịch vụ sử dụng:</Typography.Text>
+                    <Typography.Text strong>
+                      Dịch vụ sử dụng:{" "}
+                      <span style={{ color: "#FF4747" }}>*</span>{" "}
+                    </Typography.Text>
                   }
                   required={false}
                   rules={[
@@ -183,6 +204,12 @@ const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
                     ))}
                   </Select>
                 </Form.Item>
+                <div style={{ paddingBottom: 80 }}>
+                  <Typography.Text type="secondary">
+                    <span style={{ color: "#FF4747" }}>*</span> là trường thông
+                    tin bắt buộc
+                  </Typography.Text>
+                </div>
               </Col>
             </Row>
           </Card>

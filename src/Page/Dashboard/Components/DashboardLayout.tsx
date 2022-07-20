@@ -1,7 +1,4 @@
-import {
-  DayRange,
-  DayValue,
-} from "@hassanmojab/react-modern-calendar-datepicker";
+import { DayValue } from "@hassanmojab/react-modern-calendar-datepicker";
 import { Col, Row } from "antd";
 import React, { FC } from "react";
 import {

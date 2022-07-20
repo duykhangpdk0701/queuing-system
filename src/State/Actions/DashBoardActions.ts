@@ -134,8 +134,8 @@ export const dashboardGetProviderChartDayAction =
       const chartData = getDaysInMonth(date.year, date.month).map((day) => {
         const sum = provider.filter((providerValue) => {
           if (
-            moment(providerValue.dateValid.toDate()).date() === day &&
-            moment(providerValue.dateValid.toDate()).year() === date.year
+            moment(providerValue.dateProvider.toDate()).date() === day &&
+            moment(providerValue.dateProvider.toDate()).year() === date.year
           ) {
             return true;
           }
@@ -219,8 +219,8 @@ export const dashboardGetProviderChartMonthAction =
       const chartData = getMonthInYear.map((month) => {
         const sum = provider.filter((providerValue) => {
           if (
-            moment(providerValue.dateValid.toDate()).month() + 1 === month &&
-            moment(providerValue.dateValid.toDate()).year() === date.year
+            moment(providerValue.dateProvider.toDate()).month() + 1 === month &&
+            moment(providerValue.dateProvider.toDate()).year() === date.year
           ) {
             return true;
           }
@@ -295,7 +295,7 @@ export const dashboardGetProviderChartWeekAction =
 
       const chartData = getWeekInMonth.map((week) => {
         const sum = provider.filter((providerValue) => {
-          const providerDate = new Date(providerValue.dateValid.toDate());
+          const providerDate = new Date(providerValue.dateProvider.toDate());
           if (
             weekCount(
               providerDate.getFullYear(),

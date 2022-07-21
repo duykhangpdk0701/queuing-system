@@ -1,7 +1,11 @@
 import React, { FC, useMemo } from "react";
-import { Card, Col, Row, Select, Typography } from "antd";
+import { Card, Col, Row, Select, Tag, Typography } from "antd";
 import styles from "./ChartDashboard.module.scss";
-import Icon, { CaretDownOutlined } from "@ant-design/icons";
+import Icon, {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  CaretDownOutlined,
+} from "@ant-design/icons";
 import Chart from "react-apexcharts";
 import { ReactComponent as providerNumberSvg } from "../../../Assets/ProviderNumber.svg";
 import { ReactComponent as providerNumberUsedSvg } from "../../../Assets/ProviderNumberUsed.svg";
@@ -151,7 +155,14 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
             </div>
             <div className={styles.providerNumberDataValue}>
               <Text>{props.chartData.static.summary}</Text>
-              <div></div>
+              <Tag
+                className={styles.tag}
+                icon={<ArrowUpOutlined />}
+                color="#FF950126"
+                style={{ color: "#FF9138" }}
+              >
+                32,41 %
+              </Tag>
             </div>
           </Card>
         </Col>
@@ -173,7 +184,14 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
             </div>
             <div className={styles.providerNumberDataValue}>
               <Text>{props.chartData.static.used}</Text>
-              <div></div>
+              <Tag
+                className={styles.tag}
+                icon={<ArrowDownOutlined />}
+                color="#E73F3F26"
+                style={{ color: "#E73F3F" }}
+              >
+                32,41 %
+              </Tag>
             </div>
           </Card>
         </Col>
@@ -195,7 +213,14 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
             </div>
             <div className={styles.providerNumberDataValue}>
               <Text>{props.chartData.static.waiting}</Text>
-              <div></div>
+              <Tag
+                className={styles.tag}
+                icon={<ArrowUpOutlined />}
+                color="#FF950126"
+                style={{ color: "#FF9138" }}
+              >
+                56,41 %
+              </Tag>
             </div>
           </Card>
         </Col>
@@ -217,7 +242,14 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
             </div>
             <div className={styles.providerNumberDataValue}>
               <Text>{props.chartData.static.reject}</Text>
-              <div></div>
+              <Tag
+                className={styles.tag}
+                icon={<ArrowDownOutlined />}
+                color="#E73F3F26"
+                style={{ color: "#E73F3F" }}
+              >
+                22,41 %
+              </Tag>
             </div>
           </Card>
         </Col>

@@ -6,6 +6,7 @@ import { DeviceAddType } from "../../../State/ActionTypes/DevicesActionTypes";
 import { DeviceTypeType } from "../../../State/ActionTypes/DeviceTypesActionTypes";
 import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
 import styles from "./DeviceAddLayout.module.scss";
+import TagRender from "./TagRender";
 
 interface IDeviceAddLayout {
   deviceTypeLoading: boolean;
@@ -186,6 +187,7 @@ const DeviceAddLayout: FC<IDeviceAddLayout> = (props) => {
                     size="large"
                     placeholder="Nhập dịch vụ sử dụng"
                     loading={props.serviceLoading}
+                    tagRender={TagRender}
                   >
                     {props.serviceData.map((value, index) => (
                       <Option key={index} value={value.id}>

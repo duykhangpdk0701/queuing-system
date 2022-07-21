@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { DeviceAddType } from "../../../State/ActionTypes/DevicesActionTypes";
 import { DeviceTypeType } from "../../../State/ActionTypes/DeviceTypesActionTypes";
 import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
+import TagRender from "../../DeviceAdd/Components/TagRender";
 import styles from "./DeviceUpdateLayout.module.scss";
 
 interface IDeviceAddLayout {
@@ -196,6 +197,7 @@ const DeviceUpdateLayout: FC<IDeviceAddLayout> = (props) => {
                     size="large"
                     placeholder="Nhập dịch vụ sử dụng"
                     loading={props.serviceLoading}
+                    tagRender={TagRender}
                   >
                     {props.serviceData.map((value, index) => (
                       <Option key={index} value={value.id}>

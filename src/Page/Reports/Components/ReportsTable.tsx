@@ -67,7 +67,7 @@ const ReportsTable: FC<IReportsTable> = (props) => {
       dataSource={props.data.map((value) => ({ ...value, key: value.id }))}
       bordered
       size="middle"
-      pagination={{ position: ["bottomRight"] }}
+      pagination={{ position: ["bottomRight"], pageSize: 12 }}
     />
   );
 };

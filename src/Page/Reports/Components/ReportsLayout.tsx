@@ -17,14 +17,6 @@ interface IReportsLayout {
 const ReportsLayout: FC<IReportsLayout> = (props) => {
   return (
     <div className={styles.section}>
-      <Row>
-        <Col>
-          <Typography.Title level={2} className={styles.title}>
-            Quản lý cấp số
-          </Typography.Title>
-        </Col>
-      </Row>
-
       <Form
         layout="vertical"
         name="report-filter"

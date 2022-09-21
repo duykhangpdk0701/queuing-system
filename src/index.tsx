@@ -7,15 +7,14 @@ import { Provider } from "react-redux";
 import Store from "./State/Store";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <Provider store={Store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
-
 
 reportWebVitals();

@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   const dispatch = useDispatch();
   const state = useSelector((state: RootStore) => state.dashboard);
-  const [chartType, setChartType] = useState("day");
+  const [chartType, setChartType] = useState("month");
 
   useEffect(() => {
     const fetchDashBoardSummary = async () => {

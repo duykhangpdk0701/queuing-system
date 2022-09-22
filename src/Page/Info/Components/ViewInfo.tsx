@@ -7,7 +7,6 @@ import {
   FormInstance,
   Avatar,
   Typography,
-  Badge,
 } from "antd";
 import React, { FC } from "react";
 import { UserType } from "../../../State/ActionTypes/UsersActionTypes";

@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row, Typography } from "antd";
+import { Alert, Button, Col, Form, Input, Row, Typography } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -34,6 +34,19 @@ const LoginForm = () => {
 
   return (
     <Form name="login" layout="vertical" onFinish={onFinish}>
+      <Form.Item>
+        <Alert
+          message="Tài khoản đăng nhập"
+          description={
+            <>
+              <div>tên đăng nhập: duykhangpdk0701</div>
+              <div>Mật khẩu: pdk073101</div>
+            </>
+          }
+          type="info"
+          showIcon
+        />
+      </Form.Item>
       <Form.Item
         name="username"
         label="Tên đăng nhập"
